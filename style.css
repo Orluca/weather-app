@@ -58,7 +58,7 @@ body {
 }
 .additional-data-container {
   grid-column: 6 / 7;
-  grid-row: 4 / 13;
+  grid-row: 4 / 9;
   /* background-color: brown; */
   display: flex;
   flex-direction: column;
@@ -88,4 +88,10 @@ body {
   border: none;
   padding: calc(0.5vh + 1vw);
 }
+
+#map {
+  grid-column: 6 / 7;
+  grid-row: 7 / 13;
+}
+
 /* #################### MEDIA QUERIES #################### */

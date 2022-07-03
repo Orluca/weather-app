@@ -38,7 +38,7 @@ const myChart = new Chart(ctx, {
       },
       x2: {
         type: "category",
-        position: "bottom",
+        position: "top",
 
         ticks: {
           callback: function (value, index, ticks) {
@@ -80,5 +80,14 @@ const myChart = new Chart(ctx, {
         },
       },
     },
+    responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 2.25,
   },
 });
+
+const map = L.map("map").setView([51.505, -0.09], 13);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "© OpenStreetMap",
+}).addTo(map);
