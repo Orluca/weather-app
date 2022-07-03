@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo|Inter" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
-    <script src="node_modules/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+    <script defer src="node_modules/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
     <script defer src="script.js"></script>
   </head>
   <body>
@@ -34,7 +34,9 @@
           <div>Sunset: <i class="fa-solid fa-arrow-down-long"></i><span> 21:34</span></div>
         </div>
       </div>
-      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <div class="search-btn-container">
+        <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
       <div class="forecast-container">
         <canvas id="myChart"></canvas>
       </div>
