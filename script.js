@@ -3,6 +3,9 @@ Chart.defaults.font.family = "sans-serif, 'FontAwesome'";
 const times = ["17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00"];
 const overcasts = ["\uf76c", "☀", "☁", "🌧", "☁", "☀", "☁", "🌧", "🌧", "☁", "☀", "☁", "☀", "☁", "☁", "☁", "☁", "☁", "☀", "☁", "☁", "☁", "☀", "🌦", "☁", "🌧", "☁", "🌧", "🌧", "🌧", "☁", "☁", "🌧", "🌧", "☁", "☁", "☁", "☁", "☁", "☁"];
 
+// Chart.register.ChartDataLabels;
+Chart.register(ChartDataLabels);
+
 const ctx = document.getElementById("myChart").getContext("2d");
 const myChart = new Chart(ctx, {
   type: "line",
@@ -153,18 +156,24 @@ const myChart = new Chart(ctx, {
           },
         },
       },
+      datalabels: {
+        color: "white",
+        formatter: Math.round,
+      },
     },
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2.25,
+    aspectRatio: 2.4,
   },
 });
 
-const map = L.map("map").setView([51.505, -0.09], 13);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: "© OpenStreetMap",
-}).addTo(map);
+// MAP STUFF
+
+// const map = L.map("map").setView([51.505, -0.09], 13);
+// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+//   maxZoom: 19,
+//   attribution: "© OpenStreetMap",
+// }).addTo(map);
 // L.tileLayer("https://tile.openweathermap.org/map/precipitation_new/13/{x}/{y}.png?appid=b1e36bf120e56cf91d93313f23cbc780", {
 //   maxZoom: 19,
 //   attribution: "© OpenStreetMap",
