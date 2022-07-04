@@ -34,6 +34,10 @@ const myChart = new Chart(ctx, {
           callback: function (value, index, ticks) {
             return times[value];
           },
+          font: {
+            size: "10vw",
+            padding: 0,
+          },
         },
       },
       x2: {
@@ -45,7 +49,7 @@ const myChart = new Chart(ctx, {
             return overcasts[value];
           },
           font: {
-            size: 20,
+            size: "15vw",
             padding: 0,
           },
         },
@@ -57,7 +61,7 @@ const myChart = new Chart(ctx, {
       },
       annotation: {
         annotations: {
-          box1: {
+          day1: {
             // Indicates the type of annotation
             type: "line",
             xMin: 7 / 3,
@@ -71,11 +75,81 @@ const myChart = new Chart(ctx, {
               xAdjust: 25,
               yAdjust: -5,
               position: "start",
+              padding: {
+                top: 3,
+                bottom: 3,
+                left: 6,
+                right: 6,
+              },
+            },
+          },
+          day2: {
+            // Indicates the type of annotation
+            type: "line",
+            xMin: 7 / 3 + 8,
+            xMax: 7 / 3 + 8,
+            label: {
+              enabled: true,
+              content: "Tuesday",
+              font: {
+                size: "10vw",
+              },
+              xAdjust: 25,
+              yAdjust: -5,
+              position: "start",
               padding: 5,
             },
-            // yMin: 0,
-            // yMax: 40,
-            backgroundColor: "rgba(255, 99, 132, 0.25)",
+          },
+          day3: {
+            // Indicates the type of annotation
+            type: "line",
+            xMin: 7 / 3 + 16,
+            xMax: 7 / 3 + 16,
+            label: {
+              enabled: true,
+              content: "Wednesday",
+              font: {
+                size: "10vw",
+              },
+              xAdjust: 25,
+              yAdjust: -5,
+              position: "start",
+              padding: 5,
+            },
+          },
+          day4: {
+            // Indicates the type of annotation
+            type: "line",
+            xMin: 7 / 3 + 24,
+            xMax: 7 / 3 + 24,
+            label: {
+              enabled: true,
+              content: "Thursday",
+              font: {
+                size: "10vw",
+              },
+              xAdjust: 25,
+              yAdjust: -5,
+              position: "start",
+              padding: 5,
+            },
+          },
+          day5: {
+            // Indicates the type of annotation
+            type: "line",
+            xMin: 7 / 3 + 32,
+            xMax: 7 / 3 + 32,
+            label: {
+              enabled: true,
+              content: "Friday",
+              font: {
+                size: "10vw",
+              },
+              xAdjust: 25,
+              yAdjust: -5,
+              position: "start",
+              padding: 5,
+            },
           },
         },
       },
@@ -91,3 +165,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: "© OpenStreetMap",
 }).addTo(map);
+// L.tileLayer("https://tile.openweathermap.org/map/precipitation_new/13/{x}/{y}.png?appid=b1e36bf120e56cf91d93313f23cbc780", {
+//   maxZoom: 19,
+//   attribution: "© OpenStreetMap",
+// }).addTo(map);
