@@ -36,6 +36,14 @@ const myChart = new Chart(ctx, {
           callback: function (value, index, ticks) {
             return value + "°C";
           },
+          font: function (context) {
+            const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+            let size = Math.round(avgSize / 32);
+            size = size > 14 ? 14 : size; // setting max limit to 12
+            return {
+              size: size,
+            };
+          },
         },
       },
       rainAxis: {
@@ -43,6 +51,16 @@ const myChart = new Chart(ctx, {
         beginAtZero: true,
         grid: {
           drawOnChartArea: false,
+        },
+        ticks: {
+          font: function (context) {
+            const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+            let size = Math.round(avgSize / 32);
+            size = size > 14 ? 14 : size; // setting max limit to 12
+            return {
+              size: size,
+            };
+          },
         },
         suggestedMax: 10,
       },
@@ -52,9 +70,13 @@ const myChart = new Chart(ctx, {
           callback: function (value, index, ticks) {
             return times[value];
           },
-          font: {
-            size: "10vw",
-            padding: 0,
+          font: function (context) {
+            const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+            let size = Math.round(avgSize / 32);
+            size = size > 14 ? 14 : size; // setting max limit to 12
+            return {
+              size: size,
+            };
           },
         },
       },
@@ -65,10 +87,15 @@ const myChart = new Chart(ctx, {
           callback: function (value, index, ticks) {
             return overcasts[value];
           },
-          font: {
-            size: "15vw",
-            padding: 0,
+          font: function (context) {
+            const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+            let size = Math.round(avgSize / 32);
+            size = size > 14 ? 14 : size; // setting max limit to 12
+            return {
+              size: size,
+            };
           },
+          maxRotation: 0,
         },
         grid: {
           drawOnChartArea: false,
@@ -89,10 +116,16 @@ const myChart = new Chart(ctx, {
             label: {
               enabled: true,
               content: "Monday",
-              font: {
-                size: "10vw",
+              font: function (context) {
+                const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+                let size = Math.round(avgSize / 32);
+                size = size > 12 ? 12 : size; // setting max limit to 12
+                return {
+                  size: size,
+                  weight: "bold",
+                };
               },
-              xAdjust: 25,
+              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
               padding: {
@@ -110,13 +143,23 @@ const myChart = new Chart(ctx, {
             label: {
               enabled: true,
               content: "Tuesday",
-              font: {
-                size: "10vw",
+              font: function (context) {
+                const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+                let size = Math.round(avgSize / 32);
+                size = size > 12 ? 12 : size; // setting max limit to 12
+                return {
+                  size: size,
+                };
               },
-              xAdjust: 25,
+              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
-              padding: 5,
+              padding: {
+                top: 3,
+                bottom: 3,
+                left: 6,
+                right: 6,
+              },
             },
           },
           day3: {
@@ -126,13 +169,23 @@ const myChart = new Chart(ctx, {
             label: {
               enabled: true,
               content: "Wednesday",
-              font: {
-                size: "10vw",
+              font: function (context) {
+                const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+                let size = Math.round(avgSize / 32);
+                size = size > 12 ? 12 : size; // setting max limit to 12
+                return {
+                  size: size,
+                };
               },
-              xAdjust: 25,
+              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
-              padding: 5,
+              padding: {
+                top: 3,
+                bottom: 3,
+                left: 6,
+                right: 6,
+              },
             },
           },
           day4: {
@@ -142,13 +195,23 @@ const myChart = new Chart(ctx, {
             label: {
               enabled: true,
               content: "Thursday",
-              font: {
-                size: "10vw",
+              font: function (context) {
+                const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+                let size = Math.round(avgSize / 32);
+                size = size > 12 ? 12 : size; // setting max limit to 12
+                return {
+                  size: size,
+                };
               },
-              xAdjust: 25,
+              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
-              padding: 5,
+              padding: {
+                top: 3,
+                bottom: 3,
+                left: 6,
+                right: 6,
+              },
             },
           },
           day5: {
@@ -158,27 +221,46 @@ const myChart = new Chart(ctx, {
             label: {
               enabled: true,
               content: "Friday",
-              font: {
-                size: "10vw",
+              font: function (context) {
+                const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+                let size = Math.round(avgSize / 32);
+                size = size > 12 ? 12 : size; // setting max limit to 12
+                return {
+                  size: size,
+                };
               },
-              xAdjust: 25,
+              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
-              padding: 5,
+              padding: {
+                top: 3,
+                bottom: 3,
+                left: 6,
+                right: 6,
+              },
             },
           },
         },
       },
       datalabels: {
         color: "white",
+        font: function (context) {
+          const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
+          let size = Math.round(avgSize / 32);
+          size = size > 12 ? 12 : size; // setting max limit to 12
+          return {
+            size: size,
+            weight: "bold",
+          };
+        },
         formatter: function (value, context) {
           return context.dataset.type === "line" ? Math.round(value) : ""; // Datalabels should only be displayed for the temperature chart, not for the rain bars
         },
       },
     },
-    responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2.4,
+    // responsive: true,
+    // maintainAspectRatio: true,
+    aspectRatio: 2.1,
   },
 });
 
