@@ -4,7 +4,7 @@ const temperatures = [16.29, 14, 11.27, 16.51, 22.48, 25.49, 26.79, 24.61, 18.72
 const times = ["17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00", "17:00", "20:00", "23:00", "02:00", "05:00", "08:00", "11:00", "14:00"];
 const overcasts = ["\uf76c", "☀", "☁", "🌧", "☁", "☀", "☁", "🌧", "🌧", "☁", "☀", "☁", "☀", "☁", "☁", "☁", "☁", "☁", "☀", "☁", "☁", "☁", "☀", "🌦", "☁", "🌧", "☁", "🌧", "🌧", "🌧", "☁", "☁", "🌧", "🌧", "☁", "☁", "☁", "☁", "☁", "☁"];
 const rain = [0, 0, 0, 0, 0, 0.25, 0.54, 0.32, 0, 0, 0, 0, 0, 0.23, 0, 0, 0, 0.17, 1.2, 0.6, 0.15, 1, 0.73, 0.11, 0, 0, 0, 0, 0, 0, 0, 0, 0.4, 0.16, 0, 0.1, 0, 0, 0.16, 0.3];
-// Chart.register.ChartDataLabels;
+
 Chart.register(ChartDataLabels);
 
 const ctx = document.getElementById("myChart").getContext("2d");
@@ -130,7 +130,6 @@ const myChart = new Chart(ctx, {
                   weight: 200,
                 };
               },
-              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
               padding: {
@@ -157,7 +156,6 @@ const myChart = new Chart(ctx, {
                   weight: 200,
                 };
               },
-              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
               padding: {
@@ -184,7 +182,6 @@ const myChart = new Chart(ctx, {
                   weight: 200,
                 };
               },
-              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
               padding: {
@@ -211,7 +208,6 @@ const myChart = new Chart(ctx, {
                   weight: 200,
                 };
               },
-              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
               padding: {
@@ -238,7 +234,6 @@ const myChart = new Chart(ctx, {
                   weight: 200,
                 };
               },
-              // xAdjust: 25,
               yAdjust: -5,
               position: "start",
               padding: {
@@ -253,7 +248,6 @@ const myChart = new Chart(ctx, {
       },
       datalabels: {
         color: "white",
-        // backgroundColor: "red",
         backgroundColor: function (context) {
           if (context.chart.width < 1000) {
             return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? "red" : "";
@@ -261,12 +255,7 @@ const myChart = new Chart(ctx, {
             return context.dataset.type === "line" ? "red" : ""; //without this the background will also appear on the rain chart
           }
         },
-        // borderColor: "black",
-        // borderWidth: 1,
         borderRadius: 5,
-        // textAlign: "center",
-        // textShadowColor: "red",
-        // textShadowBlur: 50,
         padding: 2,
         font: function (context) {
           const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
@@ -278,20 +267,11 @@ const myChart = new Chart(ctx, {
           };
         },
         formatter: function (value, context) {
-          // console.log(context);
           if (context.chart.width < 1000) {
             return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? Math.round(value) : "";
           } else {
             return context.dataset.type === "line" ? Math.round(value) : ""; // Datalabels should only be displayed for the temperature chart, not for the rain bars
           }
-        },
-        listeners: {
-          enter: function (context) {
-            console.log(context);
-            // let x = context.chart.scales["x"].getValueForPixel(evt.offsetX);
-            // let y = context.chart.scales["y"].getValueForPixel(evt.offsetY);
-            // console.log(x, y);
-          },
         },
       },
       tooltip: {
@@ -304,41 +284,3 @@ const myChart = new Chart(ctx, {
     // aspectRatio: 2.1,
   },
 });
-
-// window.addEventListener("resize", () => {
-//   myChart.resize();
-//   console.log("lkajsdf");
-// });
-
-// MAP STUFF
-
-// const map = L.map("map").setView([51.505, -0.09], 13);
-// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-//   maxZoom: 19,
-//   attribution: "© OpenStreetMap",
-// }).addTo(map);
-// L.tileLayer("https://tile.openweathermap.org/map/precipitation_new/13/{x}/{y}.png?appid=b1e36bf120e56cf91d93313f23cbc780", {
-//   maxZoom: 19,
-//   attribution: "© OpenStreetMap",
-// }).addT
-
-// let id;
-// $(window).resize(function () {
-//   clearTimeout(id);
-//   id = setTimeout(doneResizing, 500);
-// });
-
-// function doneResizing() {
-//   $("body").append("<br/>done!");
-// }
-
-// let id;
-// window.addEventListener("resize", function () {
-//   clearTimeout(id);
-//   id = setTimeout(doneResizing, 200);
-//   // console.log(this.id);
-// });
-
-// function doneResizing() {
-//   myChart.resize(400, 200);
-// }
