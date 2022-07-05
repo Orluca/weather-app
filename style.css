@@ -96,11 +96,12 @@ body {
   /* overflow: auto; */
 }
 
-#myChart {
+/* #myChart {
   width: 100% !important;
   height: 100%;
-}
+} */
 
+/* There was an issue, where the ChartJS chart did not resize vertically when shrinking the window vertically. The following code, plus setting the "position" in ".forecast-container" to "relative" seems to have fixed it */
 .forecast-container > div {
   position: absolute;
   top: 0;

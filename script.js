@@ -17,7 +17,12 @@ const myChart = new Chart(ctx, {
         type: "line",
         label: "Temperatures",
         data: temperatures,
-        borderWidth: 1,
+        borderWidth: 3,
+        borderColor: "red",
+        tension: 0.5,
+        pointBackgroundColor: "red",
+        pointBorderWidth: 0,
+        pointRadius: 0,
       },
       {
         type: "bar",
@@ -39,7 +44,7 @@ const myChart = new Chart(ctx, {
           font: function (context) {
             const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             let size = Math.round(avgSize / 32);
-            size = size > 14 ? 14 : size; // setting max limit to 12
+            size = size > 14 ? 14 : size;
             return {
               size: size,
             };
@@ -56,7 +61,7 @@ const myChart = new Chart(ctx, {
           font: function (context) {
             const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             let size = Math.round(avgSize / 32);
-            size = size > 14 ? 14 : size; // setting max limit to 12
+            size = size > 14 ? 14 : size;
             return {
               size: size,
             };
@@ -73,7 +78,7 @@ const myChart = new Chart(ctx, {
           font: function (context) {
             const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             let size = Math.round(avgSize / 32);
-            size = size > 14 ? 14 : size; // setting max limit to 12
+            size = size > 14 ? 14 : size;
             return {
               size: size,
             };
@@ -90,7 +95,7 @@ const myChart = new Chart(ctx, {
           font: function (context) {
             const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             let size = Math.round(avgSize / 32);
-            size = size > 14 ? 14 : size; // setting max limit to 12
+            size = size > 14 ? 14 : size;
             return {
               size: size,
             };
@@ -119,7 +124,7 @@ const myChart = new Chart(ctx, {
               font: function (context) {
                 const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
                 let size = Math.round(avgSize / 32);
-                size = size > 12 ? 12 : size; // setting max limit to 12
+                size = size > 12 ? 12 : size;
                 return {
                   size: size,
                   weight: 200,
@@ -146,7 +151,7 @@ const myChart = new Chart(ctx, {
               font: function (context) {
                 const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
                 let size = Math.round(avgSize / 32);
-                size = size > 12 ? 12 : size; // setting max limit to 12
+                size = size > 12 ? 12 : size;
                 return {
                   size: size,
                   weight: 200,
@@ -173,7 +178,7 @@ const myChart = new Chart(ctx, {
               font: function (context) {
                 const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
                 let size = Math.round(avgSize / 32);
-                size = size > 12 ? 12 : size; // setting max limit to 12
+                size = size > 12 ? 12 : size;
                 return {
                   size: size,
                   weight: 200,
@@ -200,7 +205,7 @@ const myChart = new Chart(ctx, {
               font: function (context) {
                 const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
                 let size = Math.round(avgSize / 32);
-                size = size > 12 ? 12 : size; // setting max limit to 12
+                size = size > 12 ? 12 : size;
                 return {
                   size: size,
                   weight: 200,
@@ -227,7 +232,7 @@ const myChart = new Chart(ctx, {
               font: function (context) {
                 const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
                 let size = Math.round(avgSize / 32);
-                size = size > 12 ? 12 : size; // setting max limit to 12
+                size = size > 12 ? 12 : size;
                 return {
                   size: size,
                   weight: 200,
@@ -248,18 +253,49 @@ const myChart = new Chart(ctx, {
       },
       datalabels: {
         color: "white",
+        // backgroundColor: "red",
+        backgroundColor: function (context) {
+          if (context.chart.width < 1000) {
+            return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? "red" : "";
+          } else {
+            return context.dataset.type === "line" ? "red" : ""; //without this the background will also appear on the rain chart
+          }
+        },
+        // borderColor: "black",
+        // borderWidth: 1,
+        borderRadius: 5,
+        // textAlign: "center",
+        // textShadowColor: "red",
+        // textShadowBlur: 50,
+        padding: 2,
         font: function (context) {
           const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
           let size = Math.round(avgSize / 32);
-          size = size > 12 ? 12 : size; // setting max limit to 12
+          size = size > 12 ? 12 : size;
           return {
             size: size,
             weight: "bold",
           };
         },
         formatter: function (value, context) {
-          return context.dataset.type === "line" ? Math.round(value) : ""; // Datalabels should only be displayed for the temperature chart, not for the rain bars
+          // console.log(context);
+          if (context.chart.width < 1000) {
+            return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? Math.round(value) : "";
+          } else {
+            return context.dataset.type === "line" ? Math.round(value) : ""; // Datalabels should only be displayed for the temperature chart, not for the rain bars
+          }
         },
+        listeners: {
+          enter: function (context) {
+            console.log(context);
+            // let x = context.chart.scales["x"].getValueForPixel(evt.offsetX);
+            // let y = context.chart.scales["y"].getValueForPixel(evt.offsetY);
+            // console.log(x, y);
+          },
+        },
+      },
+      tooltip: {
+        enabled: false,
       },
     },
     responsive: true,
