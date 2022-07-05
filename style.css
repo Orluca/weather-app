@@ -40,14 +40,14 @@ body {
 }
 
 .location-town {
-  font-size: clamp(1rem, 5vw, 6rem);
+  font-size: clamp(1rem, 2vw + 1.5vh, 6rem);
   font-weight: 900;
   text-shadow: 0px 1px, 1px 0px, 1px 0px;
   /* font-family: "Arvo"; */
 }
 
 .location-state-and-country {
-  font-size: clamp(0.7rem, 1.2vw, 2rem);
+  font-size: clamp(0.7rem, 0.5vw + 1vh, 2rem);
 }
 
 /* #################### CURRENT WEATHER SECTION #################### */
@@ -59,7 +59,7 @@ body {
   justify-content: flex-end;
   align-items: flex-start;
   /* column-gap: 1rem; */
-  font-size: clamp(1rem, 6vw, 7rem);
+  font-size: clamp(1rem, 3vw + 1.5vh, 7rem);
   text-shadow: 0px 1px, 1px 0px, 1px 0px;
   font-weight: 900;
 }
@@ -90,8 +90,33 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   /* transform: translateY(-2vw); */
+  /* overflow: hidden; */
+  /* overflow: auto; */
 }
+
+#myChart {
+  width: 100% !important;
+  height: 100%;
+}
+
+.forecast-container > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* #myChart {
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+} */
+
 /* #################### SEARCH SECTION #################### */
 .search-btn-container {
   grid-column: 6 / 7;
@@ -136,10 +161,10 @@ body {
     align-items: center;
     text-align: start;
     column-gap: 1rem;
-    font-size: clamp(0.6rem, 1.25vw, 2rem);
+    font-size: clamp(0.5rem, 1.25vw, 2rem);
   }
   .location-state-and-country {
-    font-size: clamp(0.6rem, 1.5vw, 2rem);
+    font-size: clamp(0.6rem, 0.75vw + 0.75vh, 2rem);
   }
 }
 
@@ -205,3 +230,51 @@ body {
     grid-row: 9 / 11;
   }
 }
+
+/* @media only screen and (max-height: 700px) {
+  body {
+    background-color: tomato;
+  }
+  .app-container {
+    grid-template-rows: repeat(2, 1fr) 0.5fr repeat(11, 1fr);
+    grid-template-columns: repeat(5, 1fr) 0.75fr;
+  }
+  .forecast-container {
+    grid-column: 1 / 6;
+    grid-row: 4 / 15;
+  }
+  .additional-data-container {
+    grid-column: 6 / 7;
+    grid-row: 4 / 7;
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    row-gap: 1rem;
+    font-size: clamp(0.6rem, 1.1vw, 2rem);
+  }
+  .location-state-and-country {
+    font-size: clamp(0.7rem, 1.2vw, 2rem);
+  }
+} */
+
+/* @media only screen and (max-height: 450px) {
+  body {
+    background-color: cyan;
+  }
+  .app-container {
+    grid-template-columns: repeat(4, 1fr) 0.75fr;
+  }
+  .forecast-container {
+    grid-column: 1 / 5;
+  }
+  .additional-data-container {
+    grid-column: 5 / 6;
+  }
+  .temperature-and-overcast-container {
+    grid-column: 4 / 6;
+    grid-row: 1 / 4;
+  }
+  .search-btn-container {
+    grid-column: 5 / 6;
+  }
+} */

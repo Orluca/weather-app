@@ -122,7 +122,7 @@ const myChart = new Chart(ctx, {
                 size = size > 12 ? 12 : size; // setting max limit to 12
                 return {
                   size: size,
-                  weight: "bold",
+                  weight: 200,
                 };
               },
               // xAdjust: 25,
@@ -149,6 +149,7 @@ const myChart = new Chart(ctx, {
                 size = size > 12 ? 12 : size; // setting max limit to 12
                 return {
                   size: size,
+                  weight: 200,
                 };
               },
               // xAdjust: 25,
@@ -175,6 +176,7 @@ const myChart = new Chart(ctx, {
                 size = size > 12 ? 12 : size; // setting max limit to 12
                 return {
                   size: size,
+                  weight: 200,
                 };
               },
               // xAdjust: 25,
@@ -201,6 +203,7 @@ const myChart = new Chart(ctx, {
                 size = size > 12 ? 12 : size; // setting max limit to 12
                 return {
                   size: size,
+                  weight: 200,
                 };
               },
               // xAdjust: 25,
@@ -227,6 +230,7 @@ const myChart = new Chart(ctx, {
                 size = size > 12 ? 12 : size; // setting max limit to 12
                 return {
                   size: size,
+                  weight: 200,
                 };
               },
               // xAdjust: 25,
@@ -258,11 +262,17 @@ const myChart = new Chart(ctx, {
         },
       },
     },
-    // responsive: true,
+    responsive: true,
+    maintainAspectRatio: false,
     // maintainAspectRatio: true,
-    aspectRatio: 2.1,
+    // aspectRatio: 2.1,
   },
 });
+
+// window.addEventListener("resize", () => {
+//   myChart.resize();
+//   console.log("lkajsdf");
+// });
 
 // MAP STUFF
 
@@ -274,4 +284,25 @@ const myChart = new Chart(ctx, {
 // L.tileLayer("https://tile.openweathermap.org/map/precipitation_new/13/{x}/{y}.png?appid=b1e36bf120e56cf91d93313f23cbc780", {
 //   maxZoom: 19,
 //   attribution: "© OpenStreetMap",
-// }).addTo(map);
+// }).addT
+
+// let id;
+// $(window).resize(function () {
+//   clearTimeout(id);
+//   id = setTimeout(doneResizing, 500);
+// });
+
+// function doneResizing() {
+//   $("body").append("<br/>done!");
+// }
+
+// let id;
+// window.addEventListener("resize", function () {
+//   clearTimeout(id);
+//   id = setTimeout(doneResizing, 200);
+//   // console.log(this.id);
+// });
+
+// function doneResizing() {
+//   myChart.resize(400, 200);
+// }
