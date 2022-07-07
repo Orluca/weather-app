@@ -8,7 +8,7 @@ let forecast; // This is what the chart will be assigned to. It is defined here 
 // SEARCH BUTTON
 const btnSearch = document.querySelector(".search-btn");
 const containerSearch = document.querySelector(".search-overlay-container");
-const inputSearchCity = document.querySelector(".search-city");
+const inputSearchCity = document.querySelector(".input-search");
 
 btnSearch.addEventListener("click", function () {
   toggleSearchContainerVisibility();
@@ -91,7 +91,6 @@ const getOvercastSymbols = function (data) {
 };
 
 const createForecastChart = function (temperatures, timeLabels, overcastSymbols, rain, timeStamps) {
-  // let annotationsArray = [];
   let annotationsArray = {};
 
   // This function creates the objects for the day annotations on the x-axis
@@ -105,7 +104,6 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
       });
     };
     const createAnnotationObject = function (pos, dayName) {
-      // const annotationObject = {};
       annotationsArray[dayName] = {
         type: "line",
         xMin: pos - 2 / 3,
@@ -202,7 +200,6 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
             },
           },
           suggestedMax: 10,
-          // display: false,
         },
         x: {
           display: true,
@@ -308,7 +305,6 @@ const currentOvercast = document.querySelector("#current-overcast");
 const updateUI = async function (weatherData) {
   console.log(weatherData);
   const { lat, lon } = weatherData.coord;
-  // const url = `https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lon}&format=jsonv2`;
   const url = `https://nominatim.openstreetmap.org/reverse.php?lat=51.9912263&lon=9.5631186&format=jsonv2`;
   await fetch(url)
     .then((response) => response.json())
@@ -322,5 +318,163 @@ const searchForCityName = function (cityName) {
       console.log(data);
     });
 };
+// ##############################################################################################
+// IMPORTED CODE FOR SEARCH FUNCTIONALITY
+// ##############################################################################################
 
-searchForCityName("Halle");
+const searchField = document.querySelector(".input-search");
+const searchResultList = document.querySelector(".search-results");
+const resultsContainer = document.querySelector(".results-container");
+const loaderContainer = document.querySelector(".loader-container");
+
+searchField.addEventListener("keypress", function (e) {
+  if (e.key !== "Enter") return;
+  searchResultList.innerHTML = "";
+  searchAndDisplayResults(e.target.value);
+});
+
+const searchAndDisplayResults = async function (cityName) {
+  resultsContainer.classList.remove("hidden");
+  loaderContainer.classList.remove("hidden");
+  mapContainer.classList.add("hidden");
+
+  // There are a lot of search results, that for some reason are missing the name of the current city/town/village, so I'm using the typed-in name, instead of getting it from the API data
+  const name = cityName
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.slice(0, 1).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  // Find all locations that match the search term
+  const locations = await fetch(`https://nominatim.openstreetmap.org/search.php?city=${cityName}&format=jsonv2`)
+    .then((response) => response.json())
+    .then((data) => data);
+
+  //   console.log(locations);
+  // Filter out locations that are NOT a city, town, village, hamlet
+  const citiesOnly = locations.filter((loc) => {
+    return loc.type === "city" || loc.type === "town" || loc.type === "village" || loc.type === "hamlet" || loc.type === "administrative";
+  });
+
+  // For each city, get additional data (state, county, country)
+  const addDataPromises = citiesOnly.map((city) => {
+    const { lat, lon } = city;
+
+    return fetch(`https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lon}&format=jsonv2`)
+      .then((response) => response.json())
+      .then((data) => data);
+  });
+
+  const citiesFullData = await Promise.all(addDataPromises);
+
+  console.log(citiesFullData);
+  // Create an object for each city and store them all in an array
+  const cities = citiesFullData.map((city) => {
+    return {
+      name: name,
+      state: city.address.state,
+      county: city.address.county,
+      country: city.address.country,
+      countryCode: city.address.country_code,
+      lat: city.lat,
+      lon: city.lon,
+    };
+  });
+
+  // The API often returns cities multiple times, so duplicates have to be filtered out (filtering is based on if there is already a city which has the same state, county and country properties)
+  const citiesFiltered = cities.reduce((acc, city) => {
+    if (
+      acc.some((entry) => {
+        return entry.state === city.state && entry.county === city.county && entry.country === city.country;
+      })
+    )
+      return acc;
+    else {
+      acc.push(city);
+      return acc;
+    }
+  }, []);
+
+  // Finally, we have to build an HTML string out of all the info in our city objects and attach that HTML element to the search result list
+  citiesFiltered.forEach((city) => {
+    const name = city.name;
+    const state = city.state;
+    const county = city.county;
+    const country = city.country;
+    const countryCode = city.countryCode;
+    const lat = city.lat;
+    const lon = city.lon;
+
+    // const html = `<li data-lat=${lat} data-lon=${lon} data-name=${name} ${state ? `data-state=${state}` : ""} ${county ? `data-county=${county}` : ""} data-country=${country}>${name}, ${state ? `${state}, ` : ``}${county ? `${county}, ` : ``}${country}</li>`;
+    const html = `
+      <div class="list-item-container">
+        <li data-lat=${lat} data-lon=${lon} data-name=${name} ${state ? `data-state=${state}` : ""} ${county ? `data-county=${county}` : ""} data-country=${country}>${name}, ${state ? `${state}, ` : ``}${county ? `${county}, ` : ``}${country}</li>
+        <img src="https://countryflagsapi.com/png/${countryCode}" alt="Flag of ${country}">
+      </div>
+      
+    `;
+
+    searchResultList.insertAdjacentHTML("beforeend", html);
+  });
+
+  loaderContainer.classList.add("hidden");
+  //   resultsContainer.classList.add("hidden");
+};
+
+searchResultList.addEventListener("click", function (e) {
+  //   console.log(e);
+  console.log(e.target.dataset.lat);
+  console.log(e.target.dataset.lon);
+});
+
+// ******************************** MAP SEARCH ********************************
+const map = L.map("map").setView([51.505, -0.09], 2);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "© OpenStreetMap",
+}).addTo(map);
+
+const mapContainer = document.querySelector(".map-search-container");
+const btnMapSearch = document.querySelector(".btn-map-search");
+const btnMapCancel = document.querySelector(".btn-map-cancel");
+const btnMapConfirm = document.querySelector(".btn-map-confirm");
+
+btnMapSearch.addEventListener("click", function () {
+  resultsContainer.classList.add("hidden");
+  mapContainer.classList.remove("hidden");
+
+  // There is a problem with Leaflet not properly loading the map tiles, due to the map being hidden initially
+  setInterval(function () {
+    map.invalidateSize();
+  }, 100);
+});
+
+btnMapCancel.addEventListener("click", function () {
+  mapContainer.classList.add("hidden");
+});
+
+btnMapConfirm.addEventListener("click", function () {
+  mapContainer.classList.add("hidden");
+});
+
+let marker;
+let markerLayer;
+let coordinates = [0, 0];
+
+map.on("click", function (e) {
+  markerLayer?.clearLayers();
+  const { lat, lng } = e.latlng;
+  marker = L.marker([lat, lng], {
+    opacity: 1,
+    draggable: true,
+    autoPan: true,
+  });
+  markerLayer = L.layerGroup([marker]).addTo(map);
+  marker.on("moveend", function (e) {
+    const { lat, lng } = this.getLatLng();
+    coordinates = [lat, lng];
+    console.log(coordinates);
+  });
+  coordinates = [lat, lng];
+  console.log(coordinates);
+});
