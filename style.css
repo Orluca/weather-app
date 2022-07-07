@@ -108,9 +108,26 @@ body {
   padding: calc(0.5vh + 1vw);
 }
 
-#map {
-  grid-column: 6 / 7;
-  grid-row: 7 / 12;
+/* #################### SEARCH OVERLAY #################### */
+.search-overlay-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(1, 1, 1, 0.4);
+  z-index: 1;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  background-color: white;
+  width: 60%;
+  height: 50%;
+}
+
+.hidden {
+  display: none;
 }
 
 /* #################### MEDIA QUERIES #################### */

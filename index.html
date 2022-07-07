@@ -12,9 +12,12 @@
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
     <script defer src="node_modules/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js" integrity="sha256-RgW6ICRcHgz1vaGkL5egQAqmkWxGbwa2E3Boz/3CapM=" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script> -->
     <!-- <script src="chartjs-plugin-datalabels.min.js"></script> -->
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <!-- <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script> -->
+    <script defer language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+
     <script defer src="script.js"></script>
   </head>
   <body>
@@ -25,15 +28,15 @@
       </div>
       <div class="temperature-and-overcast-container">
         <div class="temperature-and-overcast-subcontainer">
-          <i class="fa-solid fa-cloud"></i>
-          <div class="temperature">21°<span class="temperature-celsius">C</span>/<span class="temperature-fahrenheit">F</span></div>
+          <i id="current-overcast" class="fa-solid fa-cloud"></i>
+          <div class="temperature">21<span class="temperature-celsius">°C</span>/<span class="temperature-fahrenheit">F</span></div>
         </div>
       </div>
       <div class="additional-data-container">
         <div class="humidity-and-wind-container">
-          <div class="humidity">Humidity: 50%</div>
+          <div class="humidity">Humidity: <span class="humidity-value">50</span>%</div>
           <div class="wind">
-            <div>Wind: 3km/h <i class="fa-solid fa-arrow-down"></i></div>
+            <div>Wind: <span class="wind-value">3</span>km/h <i class="fa-solid fa-arrow-down"></i></div>
           </div>
         </div>
         <div class="sun">
@@ -46,9 +49,12 @@
       </div>
       <div class="forecast-container">
         <div><canvas id="myChart"></canvas></div>
-        <!-- <canvas id="myChart"></canvas> -->
       </div>
-      <!-- <div id="map"></div> -->
+    </div>
+    <div class="search-overlay-container hidden">
+      <div class="search-container">
+        <input type="text" placeholder="Search for city name..." class="search-city" />
+      </div>
     </div>
   </body>
 </html>
