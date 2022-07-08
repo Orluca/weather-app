@@ -1,5 +1,7 @@
 let forecast; // This is what the chart will be assigned to. It is defined here in the global scope, so that it can be destroyed when a new chart has to be drawn
 
+const appContainer = document.querySelector(".app-container");
+
 // // SEARCH BUTTON
 const btnSearch = document.querySelector(".search-btn");
 const containerSearchOverlay = document.querySelector(".search-overlay-container");
@@ -424,6 +426,7 @@ searchResultList.addEventListener("click", function (e) {
   const name = responsibleContainer.dataset.name;
   const state = responsibleContainer.dataset.state;
   const country = responsibleContainer.dataset.country;
+  appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lon, name, state, country);
   getForecastData(lat, lon);
 });
@@ -457,6 +460,7 @@ btnMapCancel.addEventListener("click", function () {
 btnMapConfirm.addEventListener("click", function () {
   // mapContainer.classList.add("hidden");
   const { lat, lng } = mapMarker.getLatLng();
+  appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lng);
   getForecastData(lat, lng);
 });
