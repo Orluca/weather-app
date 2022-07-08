@@ -18,7 +18,7 @@ containerSearchOverlay.addEventListener("mousedown", function (e) {
 });
 
 const getForecastData = async function (lat, lon) {
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=b1e36bf120e56cf91d93313f23cbc780`)
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=b1e36bf120e56cf91d93313f23cbc780&units=${currentTempUnit === "celsius" ? "metric" : "imperial"}`)
     .then((response) => response.json())
     .then((data) => {
       // console.log(data);
@@ -33,7 +33,7 @@ const getForecastData = async function (lat, lon) {
 };
 
 const getTemperatures = function (data) {
-  return data.list.map((entry) => Number((entry.main.temp - 273.15).toFixed(2)));
+  return data.list.map((entry) => Number(entry.main.temp.toFixed(2)));
 };
 
 const getTimelabels = function (data) {
@@ -154,7 +154,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
         y: {
           beginAtZero: true,
           ticks: {
-            callback: function (value, index, ticks) {
+            callback: function (value) {
               return value + "°C";
             },
             font: function (context) {
@@ -272,7 +272,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
 };
 
 const getCurrentWeather = async function (lat, lon, name, state, country) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=b1e36bf120e56cf91d93313f23cbc780&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=b1e36bf120e56cf91d93313f23cbc780&units=${currentTempUnit === "celsius" ? "metric" : "imperial"}`)
     .then((response) => response.json())
     .then((data) => {
       updateUI(data, name, state, country);
@@ -473,4 +473,59 @@ map.on("click", function (e) {
     autoPan: true,
   });
   mapMarkerLayer = L.layerGroup([mapMarker]).addTo(map);
+});
+
+// SWITCHING CELSIUS <-> FAHRENHEIT
+let currentTempUnit = "celsius";
+const celsiusSymbol = document.querySelector(".temperature-celsius");
+const fahrenheitSymbol = document.querySelector(".temperature-fahrenheit");
+const temperatureToggle = document.querySelector(".temperature-toggle");
+
+temperatureToggle.addEventListener("click", function () {
+  toggleTempUnitSymbol();
+  convertCurrentTemp();
+  convertForecastTemps();
+  currentTempUnit = currentTempUnit === "celsius" ? "fahrenheit" : "celsius";
+});
+
+const toggleTempUnitSymbol = function () {
+  celsiusSymbol.classList.toggle("active-temperature");
+  fahrenheitSymbol.classList.toggle("active-temperature");
+};
+
+const convertCurrentTemp = function () {
+  // Convert the value of the current temperature and update the display accordingly
+  const currentTempValue = Number(elCurrentTemp.textContent);
+  elCurrentTemp.textContent = currentTempUnit === "celsius" ? Math.round(celsiusToFahrenheit(currentTempValue)) : Math.round(fahrenheitToCelsius(currentTempValue));
+};
+
+const celsiusToFahrenheit = function (temp) {
+  return temp * 1.8 + 32;
+};
+
+const fahrenheitToCelsius = function (temp) {
+  return (temp - 32) * (5 / 9);
+};
+
+const convertForecastTemps = function () {
+  // Get the current temperatures from the forecast chart
+  const forecastTemps = forecast.data.datasets[0].data;
+
+  // Convert the forecast temperatures to celsius/fahrenheit
+  const forecastTempsConverted = forecastTemps.map((temp) => Number(currentTempUnit === "celsius" ? celsiusToFahrenheit(temp).toFixed(2) : fahrenheitToCelsius(temp).toFixed(2)));
+
+  forecast.data.datasets[0].data = forecastTempsConverted;
+  forecast.options.scales["y"].ticks.callback = function (value) {
+    return currentTempUnit === "celsius" ? value + "°F" : value + "°C";
+  };
+  forecast.update();
+};
+
+// JUST TESTING
+elCurrentOvercast.addEventListener("click", function () {
+  forecast.data.datasets[0].data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  forecast.options.scales["y"].ticks.callback = function (value) {
+    return value + "°F";
+  };
+  forecast.update();
 });
