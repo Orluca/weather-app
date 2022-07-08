@@ -28,8 +28,9 @@
       </div>
       <div class="temperature-and-overcast-container">
         <div class="temperature-and-overcast-subcontainer">
-          <i id="current-overcast" class="fa-solid fa-cloud"></i>
-          <div class="temperature">21<span class="temperature-celsius">°C</span>/<span class="temperature-fahrenheit">F</span></div>
+          <!-- <i id="current-overcast" class="fa-solid fa-cloud"></i> -->
+          <div id="current-overcast">☁</div>
+          <div class="temperature-container"><span class="temperature">21</span><span class="temperature-celsius">°C</span>/<span class="temperature-fahrenheit">F</span></div>
         </div>
       </div>
       <div class="additional-data-container">
@@ -40,8 +41,8 @@
           </div>
         </div>
         <div class="sun">
-          <div>Sunrise: <i class="fa-solid fa-arrow-up-long"></i><span> 04:58</span></div>
-          <div>Sunset: <i class="fa-solid fa-arrow-down-long"></i><span> 21:34</span></div>
+          <div>Sunrise: <i class="fa-solid fa-arrow-up-long"></i><span class="sunrise"> 04:58</span></div>
+          <div>Sunset: <i class="fa-solid fa-arrow-down-long"></i><span class="sunset"> 21:34</span></div>
         </div>
       </div>
       <div class="search-btn-container">
@@ -63,10 +64,7 @@
           </div>
           <div class="content-container">
             <div class="results-container hidden">
-              <ul class="search-results">
-                <!-- <li data-lat="50.8749437" data-lon="8.022743962129319" data-name="Siegen" data-state="Nordrhein-Westfalen" data-county="Kreis" siegen-wittgenstein="" data-country="Deutschland">Siegen, Nordrhein-Westfalen, Kreis Siegen-Wittgenstein, Deutschland</li>
-                <li data-lat="50.8749437" data-lon="8.022743962129319" data-name="Siegen" data-state="Nordrhein-Westfalen" data-county="Kreis" siegen-wittgenstein="" data-country="Deutschland">Siegen, Großer Osten, Frankreich</li> -->
-              </ul>
+              <ul class="search-results"></ul>
             </div>
             <div class="map-search-container hidden">
               <div id="map"></div>
