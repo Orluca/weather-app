@@ -44,11 +44,13 @@ const getTemperatures = function (data) {
 };
 
 const getTimelabels = function (data) {
-  return data.list.map((entry) => dayjs(entry.dt * 1000).format("HH:mm"));
+  const timezone = data.city.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
+  return data.list.map((entry) => dayjs((entry.dt + timezone) * 1000).format("HH:mm"));
 };
 
 const getTimestamps = function (data) {
-  return data.list.map((entry) => entry.dt * 1000);
+  const timezone = data.city.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
+  return data.list.map((entry) => (entry.dt + timezone) * 1000);
 };
 
 const getRain = function (data) {
@@ -56,30 +58,42 @@ const getRain = function (data) {
 };
 
 const getOvercastSymbols = function (data) {
-  return data.list.map((entry) => getOvercastSymbol(entry.weather[0].id));
+  return data.list.map((entry) => getOvercastSymbol(entry.weather[0].id, "emoji"));
 };
 
-const getOvercastSymbol = function (id) {
+const getOvercastSymbol = function (id, iconType) {
   // These are the IDs of certain weather conditions. Each group shares the same weather icon (also see https://openweathermap.org/weather-conditions)
   const ids = [
-    ["fa-sun-bright", "☀", 800], // clearSky
-    ["fa-cloud-sun", "🌤", 801], // partlyClouded
-    ["fa-cloud", "☁", 802, 803, 804], // clouded
-    ["fa-cloud-rain", "🌧", 300, 301, 302, 310, 311, 312, 313, 314, 321, 520, 521, 522, 531], // rain
-    ["fa-cloud-sun-rain", "🌦", 500, 501, 502, 503, 504], // rainAndSun
-    ["fa-cloud-bolt", "🌩", 200, 201, 202, 210, 211, 212, 221, 230, 231, 232], // thunderstorm
-    ["fa-snowflake", "❄", 511, 600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622], // snow
-    ["fa-cloud-fog", "🌫", 701, 711, 721, 731, 741, 751, 761, 762, 771, 781], // mist
+    ["sun.png", "☀", 800], // clearSky
+    ["sun-clouds.png", "🌤", 801], // partlyClouded
+    ["clouds.png", "☁", 802, 803, 804], // clouded
+    ["rain.png", "🌧", 300, 301, 302, 310, 311, 312, 313, 314, 321, 520, 521, 522, 531], // rain
+    ["sun-rain.png", "🌦", 500, 501, 502, 503, 504], // rainAndSun
+    ["thunderstorm.png", "🌩", 200, 201, 202, 210, 211, 212, 221, 230, 231, 232], // thunderstorm
+    ["snowflake.png", "❄", 511, 600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622], // snow
+    ["fog.png", "🌫", 701, 711, 721, 731, 741, 751, 761, 762, 771, 781], // mist
   ];
   let symbol;
 
   // using a for-loop, so that the loop can be cancelled once the ID has been found
-  for (let i = 0; i < ids.length; i++) {
-    if (ids[i].includes(id)) {
-      symbol = ids[i][0];
-      break;
+  if (iconType === "emoji") {
+    for (let i = 0; i < ids.length; i++) {
+      if (ids[i].includes(id)) {
+        symbol = ids[i][1];
+        break;
+      }
     }
   }
+
+  if (iconType === "png") {
+    for (let i = 0; i < ids.length; i++) {
+      if (ids[i].includes(id)) {
+        symbol = ids[i][0];
+        break;
+      }
+    }
+  }
+
   return symbol;
 };
 
@@ -90,6 +104,8 @@ const colorAxisLabels = "rgba(255, 255, 255, 0.4)";
 const colorAnnotationsLine = "rgba(3, 218, 198, 0.8)";
 const colorAnnotationsLabelBG = "rgba(3, 218, 198, 1)";
 const colorTempCurve = "rgb(227, 50, 50)";
+const colorRainBars = "rgb(84, 178, 255)";
+// const colorRainBars = "green";
 
 const createForecastChart = function (temperatures, timeLabels, overcastSymbols, rain, timeStamps) {
   let annotationsArray = {};
@@ -122,9 +138,10 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
             return {
               size: size,
               weight: 200,
+              family: "Inter",
             };
           },
-          fontFamily: "Inter",
+
           yAdjust: -5,
           position: "start",
           padding: {
@@ -142,6 +159,23 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
   Chart.defaults.font.family = "sans-serif, 'FontAwesome'";
   Chart.register(ChartDataLabels);
 
+  // A custom plugin that allows to color the chart background
+  const backgroundColorPlugin = {
+    id: "background",
+    beforeDraw: (chart, args, opts) => {
+      if (!opts.color) {
+        return;
+      }
+
+      const { ctx, chartArea } = chart;
+
+      ctx.fillStyle = opts.color;
+      ctx.fillRect(chartArea.left, chartArea.top, chartArea.width, chartArea.height);
+    },
+  };
+
+  Chart.register(backgroundColorPlugin);
+
   const ctx = document.getElementById("myChart").getContext("2d");
   forecast = new Chart(ctx, {
     type: "line",
@@ -152,7 +186,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           type: "line",
           label: "Temperatures",
           data: temperatures,
-          borderWidth: 3,
+          borderWidth: 5,
           borderColor: colorTempCurve,
           tension: 0.2,
           pointBackgroundColor: colorTempCurve,
@@ -164,7 +198,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           label: "Rain",
           data: rain,
           yAxisID: "rainAxis",
-          backgroundColor: "blue",
+          backgroundColor: colorRainBars,
         },
       ],
     },
@@ -200,6 +234,9 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
             drawTicks: false,
           },
           ticks: {
+            callback: function (value) {
+              return value + "mm";
+            },
             font: function (context) {
               const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
               let size = Math.round(avgSize / 32);
@@ -249,7 +286,19 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               };
             },
             maxRotation: 0,
-            color: colorAxisSymbols,
+            // color: colorAxisSymbols,
+            color: function (value) {
+              // console.log(value);
+              if (value.tick.label === "☀") return "rgb(255, 241, 107)";
+              if (value.tick.label === "⛅") return "rgb(255, 246, 161)"; // seems to not be working?
+              if (value.tick.label === "🌧") return "rgb(57, 114, 204)";
+              if (value.tick.label === "🌦") return "rgb(110, 152, 219)";
+              if (value.tick.label === "🌩") return "rgb(219, 77, 77)";
+              if (value.tick.label === "☁") return "rgb(222, 222, 222)";
+              if (value.tick.label === "🌫") return "rgb(181, 181, 181)";
+              if (value.tick.label === "❄") return "rgb(61, 200, 255)";
+              return "rgb(250, 226, 155)";
+            },
           },
           grid: {
             drawOnChartArea: false,
@@ -266,16 +315,18 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
         },
         datalabels: {
           color: "white",
-          backgroundColor: function (context) {
-            // Prevents the datalabels from also appearing on the rain chart
-            if (context.chart.width < 1000) {
-              return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? colorTempCurve : "";
-            } else {
-              return context.dataset.type === "line" ? colorTempCurve : "";
-            }
-          },
-          borderRadius: 5,
-          padding: 2,
+          // backgroundColor: function (context) {
+          //   // Prevents the datalabels from also appearing on the rain chart
+          //   if (context.chart.width < 1000) {
+          //     return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? colorTempCurve : "";
+          //   } else {
+          //     return context.dataset.type === "line" ? colorTempCurve : "";
+          //   }
+          // },
+          // borderRadius: 5,
+          // padding: 2,
+          // anchor: "start",
+          align: "end",
           font: function (context) {
             const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             let size = Math.round(avgSize / 32);
@@ -292,9 +343,15 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               return context.dataset.type === "line" ? Math.round(value) : ""; // Datalabels should only be displayed for the temperature chart, not for the rain bars
             }
           },
+          textShadowColor: "black",
         },
         tooltip: {
           enabled: false,
+        },
+        background: {
+          // color: "rgba(3, 218, 198, 0.1)", //cyan
+          // color: "rgba(187, 134, 252, 0.1)", // pinkish
+          color: "rgba(255, 255, 255, 0.05)", // grey
         },
       },
       responsive: true,
@@ -338,7 +395,7 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   const timezone = weatherData.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
   const sunrise = dayjs((weatherData.sys.sunrise + timezone) * 1000).format("HH:mm");
   const sunset = dayjs((weatherData.sys.sunset + timezone) * 1000).format("HH:mm");
-  const weatherSymbol = getOvercastSymbol(weatherData.weather[0].id);
+  const weatherSymbol = getOvercastSymbol(weatherData.weather[0].id, "png");
 
   elTownName.textContent = name;
   elStateAndCountry.textContent = `${state ? `${state}, ` : ""} ${country}`;
@@ -348,7 +405,9 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   elSunrise.textContent = sunrise;
   elSunset.textContent = sunset;
   // elCurrentOvercast.textContent = weatherSymbol;
-  elCurrentOvercast.textContent = weatherSymbol;
+  // console.log(elCurrentOvercast.classList);
+  // elCurrentOvercast.classList = `fa-solid ${weatherSymbol}`;
+  elCurrentOvercast.src = `icons/${weatherSymbol}`;
 
   containerSearchOverlay.classList.add("hidden");
 };
@@ -475,19 +534,16 @@ const btnMapCancel = document.querySelector(".btn-map-cancel");
 const btnMapConfirm = document.querySelector(".btn-map-confirm");
 
 btnMapSearch.addEventListener("click", function (e) {
-  // resultsContainer.classList.add("hidden");
-  // mapContainer.classList.remove("hidden");
-
-  if (e.target.dataset.status === "inactive") {
-    e.target.classList.remove("btn-map-inactive");
-    e.target.classList.add("btn-map-active");
-    e.target.dataset.status = "active";
+  if (this.dataset.status === "inactive") {
+    this.classList.remove("btn-map-inactive");
+    this.classList.add("btn-map-active");
+    this.dataset.status = "active";
     mapContainer.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
   } else {
-    e.target.classList.add("btn-map-inactive");
-    e.target.classList.remove("btn-map-active");
-    e.target.dataset.status = "inactive";
+    this.classList.add("btn-map-inactive");
+    this.classList.remove("btn-map-active");
+    this.dataset.status = "inactive";
     mapContainer.classList.add("hidden");
     // resultsContainer.classList.remove("hidden");
   }

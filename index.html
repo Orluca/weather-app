@@ -21,6 +21,7 @@
     <script defer src="script.js"></script>
   </head>
   <body>
+    <i class="fa-solid fa-cloud-fog"></i>
     <div class="app-container hidden">
       <div class="location-container">
         <div class="location-town">Halle (Saale)</div>
@@ -28,7 +29,8 @@
       </div>
       <div class="temperature-and-overcast-container">
         <!-- <div class="temperature-and-overcast-subcontainer"> -->
-        <i id="current-overcast" class="fa-solid fa-cloud"></i>
+        <!-- <i id="current-overcast" class="fa-solid fa-cloud"></i> -->
+        <img id="current-overcast" src="icons/sun-rain.png" alt="" />
         <!-- <div id="current-overcast">☁</div> -->
         <div class="temperature-container">
           <span class="temperature">21</span>°
@@ -64,7 +66,10 @@
               <!-- <button class="btn-search">🔍</button> -->
               <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-            <button class="btn-map-search btn-map-inactive" data-status="inactive"><i class="fa-solid fa-map-location-dot"></i></button>
+            <!-- <button class="btn-map-search btn-map-inactive" data-status="inactive"><i class="fa-solid fa-map-location-dot"></i></button> -->
+            <button class="btn-map-search btn-map-inactive" data-status="inactive"><img src="icons/map.png" alt="" class="btn-map-img" /></button>
+            <!-- <button class="btn-map-search btn-map-inactive" data-status="inactive"></button> -->
+            <!-- <div class="btn-map-search btn-map-inactive" data-status="inactive"><img src="icons/map.png" alt="" class="btn-map-img" /></div> -->
           </div>
           <div class="content-container">
             <div class="results-container hidden">
