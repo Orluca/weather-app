@@ -11,11 +11,14 @@ A simple weather app created with Vanilla JS and ChartJS.
 
 ### todos
 
-- make search more elegant: only close search window once the forecast and everything else has loaded
-- better loading spinner
-- animations
-- better icons
-- figure out color scheme
-- make search window responsive
-- refactor everything
-- closing modal window by clicking into background should be disabled on startup (if forecast exists...)
+- [ ] make search more elegant: only close search window once the forecast and everything else has loaded
+- [ ] better loading spinner
+- [ ] animations
+- [ ] better icons
+- [ ] figure out color scheme
+- [ ] make search window responsive
+- [ ] refactor everything
+- [x] closing modal window by clicking into background should be disabled on startup (if forecast exists...)
+- [ ] implement wind direction functionality
+- [x] if you click on the 'open map' button while the map is already open, the map should close
+- [x] also, the map button should be a TOGGLE, meaning it stays pressed as long as the map is open

@@ -17,6 +17,7 @@ btnSearch.addEventListener("click", function () {
 
 // Closing the search window when pressing outside of its modal window
 containerSearchOverlay.addEventListener("mousedown", function (e) {
+  if (!forecast) return; // this functionality should only be enabled when the app window already exists, so you don't actually close the search
   if (e.target === this || e.target === searchContainer) {
     containerSearchOverlay.classList.toggle("hidden");
     appContainer.classList.remove("blurry");
@@ -61,14 +62,14 @@ const getOvercastSymbols = function (data) {
 const getOvercastSymbol = function (id) {
   // These are the IDs of certain weather conditions. Each group shares the same weather icon (also see https://openweathermap.org/weather-conditions)
   const ids = [
-    ["☀", 800], // clearSky
-    ["🌤", 801], // partlyClouded
-    ["☁", 802, 803, 804], // clouded
-    ["🌧", 300, 301, 302, 310, 311, 312, 313, 314, 321, 520, 521, 522, 531], // rain
-    ["🌦", 500, 501, 502, 503, 504], // rainAndSun
-    ["🌩", 200, 201, 202, 210, 211, 212, 221, 230, 231, 232], // thunderstorm
-    ["❄", 511, 600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622], // snow
-    ["🌫", 701, 711, 721, 731, 741, 751, 761, 762, 771, 781], // mist
+    ["fa-sun-bright", "☀", 800], // clearSky
+    ["fa-cloud-sun", "🌤", 801], // partlyClouded
+    ["fa-cloud", "☁", 802, 803, 804], // clouded
+    ["fa-cloud-rain", "🌧", 300, 301, 302, 310, 311, 312, 313, 314, 321, 520, 521, 522, 531], // rain
+    ["fa-cloud-sun-rain", "🌦", 500, 501, 502, 503, 504], // rainAndSun
+    ["fa-cloud-bolt", "🌩", 200, 201, 202, 210, 211, 212, 221, 230, 231, 232], // thunderstorm
+    ["fa-snowflake", "❄", 511, 600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622], // snow
+    ["fa-cloud-fog", "🌫", 701, 711, 721, 731, 741, 751, 761, 762, 771, 781], // mist
   ];
   let symbol;
 
@@ -81,6 +82,14 @@ const getOvercastSymbol = function (id) {
   }
   return symbol;
 };
+
+const colorGridLines = "rgba(255, 255, 255, 0.1)";
+const colorMainAxis = "rgba(255, 255, 255, 0.4)";
+const colorAxisSymbols = "rgba(255, 255, 255, 0.8)";
+const colorAxisLabels = "rgba(255, 255, 255, 0.4)";
+const colorAnnotationsLine = "rgba(3, 218, 198, 0.8)";
+const colorAnnotationsLabelBG = "rgba(3, 218, 198, 1)";
+const colorTempCurve = "rgb(227, 50, 50)";
 
 const createForecastChart = function (temperatures, timeLabels, overcastSymbols, rain, timeStamps) {
   let annotationsArray = {};
@@ -100,9 +109,12 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
         type: "line",
         xMin: pos - 2 / 3,
         xMax: pos - 2 / 3,
+        borderColor: colorAnnotationsLine,
         label: {
           enabled: true,
           content: dayName,
+          backgroundColor: colorAnnotationsLabelBG,
+          color: "black",
           font: function (context) {
             const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
             let size = Math.round(avgSize / 32);
@@ -112,6 +124,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               weight: 200,
             };
           },
+          fontFamily: "Inter",
           yAdjust: -5,
           position: "start",
           padding: {
@@ -140,9 +153,9 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           label: "Temperatures",
           data: temperatures,
           borderWidth: 3,
-          borderColor: "red",
+          borderColor: colorTempCurve,
           tension: 0.2,
-          pointBackgroundColor: "red",
+          pointBackgroundColor: colorTempCurve,
           pointBorderWidth: 0,
           pointRadius: 0,
         },
@@ -171,6 +184,11 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
                 size: size,
               };
             },
+            color: colorAxisLabels,
+          },
+          grid: {
+            borderColor: colorMainAxis,
+            color: colorGridLines,
           },
         },
         rainAxis: {
@@ -190,6 +208,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
                 size: size,
               };
             },
+            color: colorAxisLabels,
           },
           suggestedMax: 10,
         },
@@ -207,6 +226,11 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
                 size: size,
               };
             },
+            color: colorAxisLabels,
+          },
+          grid: {
+            borderColor: colorMainAxis,
+            color: colorGridLines,
           },
         },
         x2: {
@@ -225,6 +249,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               };
             },
             maxRotation: 0,
+            color: colorAxisSymbols,
           },
           grid: {
             drawOnChartArea: false,
@@ -242,10 +267,11 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
         datalabels: {
           color: "white",
           backgroundColor: function (context) {
+            // Prevents the datalabels from also appearing on the rain chart
             if (context.chart.width < 1000) {
-              return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? "red" : "";
+              return context.dataIndex % 2 === 0 && context.dataset.type === "line" ? colorTempCurve : "";
             } else {
-              return context.dataset.type === "line" ? "red" : ""; //without this the background will also appear on the rain chart
+              return context.dataset.type === "line" ? colorTempCurve : "";
             }
           },
           borderRadius: 5,
@@ -321,6 +347,7 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   elWind.textContent = wind;
   elSunrise.textContent = sunrise;
   elSunset.textContent = sunset;
+  // elCurrentOvercast.textContent = weatherSymbol;
   elCurrentOvercast.textContent = weatherSymbol;
 
   containerSearchOverlay.classList.add("hidden");
@@ -371,7 +398,6 @@ const searchAndDisplayResults = async function (cityName) {
 
   const citiesFullData = await Promise.all(addDataPromises);
 
-  console.log(citiesFullData);
   // Create an object for each city and store them all in an array
   const cities = citiesFullData.map((city) => {
     return {
@@ -448,9 +474,23 @@ const btnMapSearch = document.querySelector(".btn-map-search");
 const btnMapCancel = document.querySelector(".btn-map-cancel");
 const btnMapConfirm = document.querySelector(".btn-map-confirm");
 
-btnMapSearch.addEventListener("click", function () {
-  resultsContainer.classList.add("hidden");
-  mapContainer.classList.remove("hidden");
+btnMapSearch.addEventListener("click", function (e) {
+  // resultsContainer.classList.add("hidden");
+  // mapContainer.classList.remove("hidden");
+
+  if (e.target.dataset.status === "inactive") {
+    e.target.classList.remove("btn-map-inactive");
+    e.target.classList.add("btn-map-active");
+    e.target.dataset.status = "active";
+    mapContainer.classList.remove("hidden");
+    resultsContainer.classList.add("hidden");
+  } else {
+    e.target.classList.add("btn-map-inactive");
+    e.target.classList.remove("btn-map-active");
+    e.target.dataset.status = "inactive";
+    mapContainer.classList.add("hidden");
+    // resultsContainer.classList.remove("hidden");
+  }
 
   // There is a problem with Leaflet not properly loading the map tiles, due to the map being hidden initially
   setInterval(function () {
@@ -460,6 +500,9 @@ btnMapSearch.addEventListener("click", function () {
 
 btnMapCancel.addEventListener("click", function () {
   mapContainer.classList.add("hidden");
+  btnMapSearch.classList.add("btn-map-inactive");
+  btnMapSearch.classList.remove("btn-map-active");
+  btnMapSearch.dataset.status = "inactive";
 });
 
 btnMapConfirm.addEventListener("click", function () {

@@ -28,8 +28,8 @@
       </div>
       <div class="temperature-and-overcast-container">
         <!-- <div class="temperature-and-overcast-subcontainer"> -->
-        <!-- <i id="current-overcast" class="fa-solid fa-cloud"></i> -->
-        <div id="current-overcast">☁</div>
+        <i id="current-overcast" class="fa-solid fa-cloud"></i>
+        <!-- <div id="current-overcast">☁</div> -->
         <div class="temperature-container">
           <span class="temperature">21</span>°
           <div class="temperature-toggle"><span class="temperature-celsius active-temperature">C</span>/<span class="temperature-fahrenheit inactive-temperature">F</span></div>
@@ -38,14 +38,14 @@
       </div>
       <div class="additional-data-container">
         <div class="humidity-and-wind-container">
-          <div class="humidity">Humidity: <span class="humidity-value">50</span>%</div>
+          <div class="humidity">Humidity: <span class="humidity-value">50</span><span class="humidity-unit">%</span></div>
           <div class="wind">
-            <div>Wind: <span class="wind-value">3</span>km/h <i class="fa-solid fa-arrow-down"></i></div>
+            <div>Wind: <span class="wind-value">3</span><span class="wind-unit">km/h</span> <i class="fa-solid fa-arrow-down"></i></div>
           </div>
         </div>
         <div class="sun">
-          <div>Sunrise: <i class="fa-solid fa-arrow-up-long"></i><span class="sunrise"> 04:58</span></div>
-          <div>Sunset: <i class="fa-solid fa-arrow-down-long"></i><span class="sunset"> 21:34</span></div>
+          <div>Sunrise: <i class="fa-solid fa-arrow-up-long"></i> <span class="sunrise">04:58</span></div>
+          <div>Sunset: <i class="fa-solid fa-arrow-down-long"></i> <span class="sunset">21:34</span></div>
         </div>
       </div>
       <div class="search-btn-container">
@@ -61,9 +61,10 @@
           <div class="search-container-top">
             <div class="text-search-container">
               <input type="text" class="input-search" placeholder="Enter City Name..." />
-              <button class="btn-search">🔍</button>
+              <!-- <button class="btn-search">🔍</button> -->
+              <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-            <button class="btn-map-search">🗺</button>
+            <button class="btn-map-search btn-map-inactive" data-status="inactive"><i class="fa-solid fa-map-location-dot"></i></button>
           </div>
           <div class="content-container">
             <div class="results-container hidden">
