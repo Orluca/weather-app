@@ -1,4 +1,15 @@
 /* #################### GLOBAL #################### */
+
+:root {
+  --bg-color: #121212;
+  --app-bg-color: #292929;
+  --text-color: #e1e1e1;
+  --element-bg-color: #1e1e1e;
+  --highlight-color-1: #03dac6;
+  --highlight-color-2: #bb86fc;
+  --shadow-color: #000000;
+}
+
 *,
 *::after,
 *::before {
@@ -8,7 +19,7 @@
 }
 
 body {
-  background-color: rgb(21, 20, 20);
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +29,7 @@ body {
 
 /* #################### APP CONTAINER #################### */
 .app-container {
-  background-color: rgb(165, 165, 165);
+  background-color: var(--app-bg-color);
   width: 90%;
   max-height: 95%;
   display: grid;
@@ -26,6 +37,8 @@ body {
   grid-template-columns: repeat(5, 1fr) 0.75fr;
   border-radius: 30px;
   padding: clamp(1rem, 2vw, 2rem);
+  color: var(--text-color);
+  box-shadow: 2px 4px 5px var(--shadow-color);
 }
 
 /* #################### LOCATION SECTION #################### */
@@ -57,20 +70,13 @@ body {
   font-weight: 900;
 }
 
-/* .temperature-and-overcast-subcontainer {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  column-gap: 2.5vw;
-} */
-
 .temperature-container {
   display: flex;
 }
 
 .temperature-celsius,
 .temperature-fahrenheit {
-  color: rgb(118, 118, 118);
+  color: rgb(86, 86, 86);
 }
 
 .temperature-toggle:hover {
@@ -78,7 +84,7 @@ body {
 }
 
 .active-temperature {
-  color: black;
+  color: var(--text-color);
 }
 
 .additional-data-container {
@@ -89,6 +95,7 @@ body {
   text-align: end;
   row-gap: 1rem;
   font-size: clamp(0.6rem, 1.1vw, 2rem);
+  /* background-color: #1e1e1e; */
 }
 
 /* #################### FORECAST CHART SECTION #################### */
@@ -124,6 +131,14 @@ body {
   font-size: clamp(0.8rem, 2vw, 4rem);
   border: none;
   padding: calc(0.5vh + 1vw);
+  background-color: var(--highlight-color-1);
+  color: var(--bg-color);
+}
+
+.search-btn:hover {
+  transform: scale(1.2);
+  background-color: var(--highlight-color-2);
+  color: white;
 }
 
 /* #################### SEARCH OVERLAY #################### */
@@ -153,10 +168,12 @@ body {
 }
 
 .search-subcontainer {
-  border: 1px solid rgb(118, 118, 118);
+  border: 1px solid var(--highlight-color-2);
+  /* border: none */
   border-radius: 1rem;
   /* padding: 1rem; */
-  background-color: rgb(145, 145, 145);
+  background-color: var(--bg-color);
+  /* box-shadow: 2px 4px 5px #393939; */
 }
 
 .search-container-top {
@@ -293,16 +310,17 @@ body {
 }
 
 .search-results > div {
-  color: black;
-  background-color: azure;
+  color: var(--text-color);
+  background-color: var(--app-bg-color);
   border-radius: 5px;
   padding: 0.5rem 2rem;
   flex-grow: 5;
+  box-shadow: 2px 2px 5px var(--shadow-color);
 }
 
 .search-results > div:hover {
-  color: white;
-  background-color: #578db2;
+  color: var(--app-bg-color);
+  background-color: var(--highlight-color-1);
   cursor: pointer;
 }
 
@@ -317,8 +335,17 @@ body {
   max-height: 1rem;
 }
 
+/* .humidity-and-wind-container {
+  background-color: red;
+} */
+
 .hidden {
   display: none;
+}
+
+.blurry {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
 }
 
 /* #################### MEDIA QUERIES #################### */

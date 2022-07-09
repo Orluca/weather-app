@@ -11,12 +11,16 @@ const inputSearchCity = document.querySelector(".input-search");
 // Opening the search window when pressing on the search symbol
 btnSearch.addEventListener("click", function () {
   containerSearchOverlay.classList.toggle("hidden");
+  appContainer.classList.add("blurry");
   inputSearchCity.focus();
 });
 
 // Closing the search window when pressing outside of its modal window
 containerSearchOverlay.addEventListener("mousedown", function (e) {
-  if (e.target === this || e.target === searchContainer) containerSearchOverlay.classList.toggle("hidden");
+  if (e.target === this || e.target === searchContainer) {
+    containerSearchOverlay.classList.toggle("hidden");
+    appContainer.classList.remove("blurry");
+  }
 });
 
 const getForecastData = async function (lat, lon) {
@@ -429,6 +433,7 @@ searchResultList.addEventListener("click", function (e) {
   appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lon, name, state, country);
   getForecastData(lat, lon);
+  appContainer.classList.remove("blurry");
 });
 
 // ******************************** MAP SEARCH ********************************
@@ -463,6 +468,7 @@ btnMapConfirm.addEventListener("click", function () {
   appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lng);
   getForecastData(lat, lng);
+  appContainer.classList.remove("blurry");
 });
 
 let mapMarker;
