@@ -31,5 +31,6 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] units of the rain axis?
 - [ ] BUG: search window doesn't always close after confirming search
 - [ ] to avoid clipping between the °C datalabels and the overcast symbols, it might be good to always have around 3-4°C of 'leeway' between the highest yaxis value and the highest temp point
+Alle Sonnensymbole zu mond in nacht
 
 icon creators: freepik, surang, creative stall premium, good ware
