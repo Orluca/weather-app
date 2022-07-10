@@ -120,6 +120,11 @@ body {
   color: var(--text-color);
 }
 
+/* .wind-direction-arrow {
+  height: 1vw;
+  transform: rotate(90deg);
+} */
+
 /* #################### FORECAST CHART SECTION #################### */
 .forecast-container {
   grid-column: 1 / 6;
