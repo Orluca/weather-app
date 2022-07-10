@@ -33,11 +33,14 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] BUG: search window doesn't always close after confirming search
 - [ ] to avoid clipping between the °C datalabels and the overcast symbols, it might be good to always have around 3-4°C of 'leeway' between the highest yaxis value and the highest temp point
 - [ ] Alle Sonnensymbole zu mond in nacht
-- [ ] figure out why overcast symbols/times and the datalabels of temps arent aligned
+- [x] figure out why overcast symbols/times and the datalabels of temps arent aligned
 - [ ] icon/link to Github repo
-- [ ] wenn karte bereit offen ist und man dann einen text search macht, sollte der map button toggle wieder deaktivieren
-- [ ] day annotations not working in some cases (e.g. northern ireland)
-- [ ] last rain mm tick and last forecast symbol kommen sich in die quere. vl letztes overcast symbol einfach auslassen?
+- [x] wenn karte bereit offen ist und man dann einen text search macht, sollte der map button toggle wieder deaktivieren
+- [x] day annotations not working in some cases (e.g. northern ireland)
+- [x] last rain mm tick and last forecast symbol kommen sich in die quere. vl letztes overcast symbol einfach auslassen?
 - [ ] für wind richtung vielleicht anderes symbol statt pfeil (kompass wäre sexy)
+- [x] der button vom text search funktioniert noch nicht
+- [ ] noch eine textbeschreibung des current weathers mit dabei packen?
+- [ ] local time dazufügen?
 
 icon creators: freepik, surang, creative stall premium, good ware

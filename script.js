@@ -58,17 +58,18 @@ const getRain = function (data) {
 };
 
 const getOvercastSymbols = function (data) {
+  console.log(data);
   return data.list.map((entry) => getOvercastSymbol(entry.weather[0].id, "emoji"));
 };
 
-const getOvercastSymbol = function (id, iconType) {
+const getOvercastSymbol = function (id, iconType, isNight) {
   // These are the IDs of certain weather conditions. Each group shares the same weather icon (also see https://openweathermap.org/weather-conditions)
   const ids = [
-    ["sun.png", "☀", 800], // clearSky
-    ["sun-clouds.png", "🌤", 801], // partlyClouded
+    [isNight ? "moon.png" : "sun.png", "☀", 800], // clearSky
+    [isNight ? "moon-clouds.png" : "sun-clouds.png", "🌤", 801], // partlyClouded
     ["clouds.png", "☁", 802, 803, 804], // clouded
     ["rain.png", "🌧", 300, 301, 302, 310, 311, 312, 313, 314, 321, 520, 521, 522, 531], // rain
-    ["sun-rain.png", "🌦", 500, 501, 502, 503, 504], // rainAndSun
+    [isNight ? "moon-rain.png" : "sun-rain.png", "🌦", 500, 501, 502, 503, 504], // rainAndSun/moon
     ["thunderstorm.png", "🌩", 200, 201, 202, 210, 211, 212, 221, 230, 231, 232], // thunderstorm
     ["snowflake.png", "❄", 511, 600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622], // snow
     ["fog.png", "🌫", 701, 711, 721, 731, 741, 751, 761, 762, 771, 781], // mist
@@ -404,6 +405,11 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
     .then((response) => response.json())
     .then((data) => data);
 
+  console.log(weatherData);
+
+  const isNight = weatherData.dt > weatherData.sys.sunset || weatherData.dt < weatherData.sys.sunrise ? true : false; // check if it is currently night in the location, so that the 'moon' weather symbol can be used instead of the 'sun' symbol
+  console.log(isNight);
+
   const name = cityName ? cityName : weatherData.name;
   const state = stateName ? stateName : addData.address.state;
   const country = countryName ? countryName : addData.address.country;
@@ -414,7 +420,7 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   const timezone = weatherData.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
   const sunrise = dayjs((weatherData.sys.sunrise + timezone) * 1000).format("HH:mm");
   const sunset = dayjs((weatherData.sys.sunset + timezone) * 1000).format("HH:mm");
-  const weatherSymbol = getOvercastSymbol(weatherData.weather[0].id, "png");
+  const weatherSymbol = getOvercastSymbol(weatherData.weather[0].id, "png", isNight);
 
   elTownName.textContent = name;
   elStateAndCountry.textContent = `${state ? `${state}, ` : ""} ${country}`;
@@ -445,6 +451,12 @@ searchField.addEventListener("keypress", function (e) {
   if (e.key !== "Enter") return;
   searchResultList.innerHTML = "";
   searchAndDisplayResults(e.target.value);
+
+  // In case the map was already toggled on when using the text search, deactivate the toggle again
+  btnMapSearch.classList.add("btn-map-inactive");
+  btnMapSearch.classList.remove("btn-map-active");
+  btnMapSearch.dataset.status = "inactive";
+
   this.value = "";
 });
 
