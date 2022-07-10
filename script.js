@@ -234,6 +234,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
             borderColor: colorMainAxis,
             color: colorGridLines,
           },
+          grace: "50%", // adding a bit of "leeway" between the highest temperature point and the may point of the y scale, so that the temp datalabels don't interfere with the overcast symbols
           // max: Math.round(highestTemp + 5),
         },
         rainAxis: {

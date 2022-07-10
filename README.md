@@ -12,34 +12,34 @@ A simple weather app created with Vanilla JS and ChartJS.
 
 ### todos
 
-- [ ] make search more elegant: only close search window once the forecast and everything else has loaded
 - [x] better loading spinner
-- [ ] animations
 - [x] better icons
 - [x] figure out color scheme
-- [ ] make search window responsive
-- [ ] refactor everything
 - [x] closing modal window by clicking into background should be disabled on startup (if forecast exists...)
 - [x] implement wind direction functionality
 - [x] if you click on the 'open map' button while the map is already open, the map should close
 - [x] also, the map button should be a TOGGLE, meaning it stays pressed as long as the map is open
+- [x] timezones sind auf der x achse noch nicht mit einberechnet
+- [x] units of the rain axis?
+- [x] to avoid clipping between the °C datalabels and the overcast symbols, it might be good to always have around 3-4°C of 'leeway' between the highest yaxis value and the highest temp point
+- [x] figure out why overcast symbols/times and the datalabels of temps arent aligned
+- [x] wenn karte bereit offen ist und man dann einen text search macht, sollte der map button toggle wieder deaktivieren
+- [x] last rain mm tick and last forecast symbol kommen sich in die quere. vl letztes overcast symbol einfach auslassen?
+- [x] der button vom text search funktioniert noch nicht
+- [x] day annotations not working in some cases (e.g. northern ireland)
+- [ ] make search more elegant: only close search window once the forecast and everything else has loaded
+- [ ] animations
+- [ ] make search window responsive
+- [ ] refactor everything
 - [ ] the map confirm and cancel buttons are still a bit ugly
 - [ ] tooltips for chart points. also maybe a crosshair?
 - [ ] datapoints on chart still way to ugly
-- [x] timezones sind auf der x achse noch nicht mit einberechnet
 - [ ] make 'small' window layout the default for full as well?
 - [ ] ERROR handling isn't implemented at all so far
-- [x] units of the rain axis?
 - [ ] BUG: search window doesn't always close after confirming search
-- [ ] to avoid clipping between the °C datalabels and the overcast symbols, it might be good to always have around 3-4°C of 'leeway' between the highest yaxis value and the highest temp point
 - [ ] Alle Sonnensymbole zu mond in nacht für chart symbols
-- [x] figure out why overcast symbols/times and the datalabels of temps arent aligned
 - [ ] icon/link to Github repo
-- [x] wenn karte bereit offen ist und man dann einen text search macht, sollte der map button toggle wieder deaktivieren
-- [x] day annotations not working in some cases (e.g. northern ireland)
-- [x] last rain mm tick and last forecast symbol kommen sich in die quere. vl letztes overcast symbol einfach auslassen?
 - [ ] für wind richtung vielleicht anderes symbol statt pfeil (kompass wäre sexy)
-- [x] der button vom text search funktioniert noch nicht
 
 ### possible additional components
 
