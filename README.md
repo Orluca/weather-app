@@ -27,13 +27,13 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] last rain mm tick and last forecast symbol kommen sich in die quere. vl letztes overcast symbol einfach auslassen?
 - [x] der button vom text search funktioniert noch nicht
 - [x] day annotations not working in some cases (e.g. northern ireland)
+- [x] datapoints on chart still way to ugly
 - [ ] make search more elegant: only close search window once the forecast and everything else has loaded
 - [ ] animations
 - [ ] make search window responsive
 - [ ] refactor everything
 - [ ] the map confirm and cancel buttons are still a bit ugly
 - [ ] tooltips for chart points. also maybe a crosshair?
-- [ ] datapoints on chart still way to ugly
 - [ ] make 'small' window layout the default for full as well?
 - [ ] ERROR handling isn't implemented at all so far
 - [ ] BUG: search window doesn't always close after confirming search

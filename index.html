@@ -13,8 +13,6 @@
     <script defer src="node_modules/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js" integrity="sha256-RgW6ICRcHgz1vaGkL5egQAqmkWxGbwa2E3Boz/3CapM=" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script> -->
-    <!-- <script src="chartjs-plugin-datalabels.min.js"></script> -->
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <script defer language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 
@@ -28,22 +26,17 @@
         <div class="location-state-and-country">Sachsen-Anhalt, Deutschland</div>
       </div>
       <div class="temperature-and-overcast-container">
-        <!-- <div class="temperature-and-overcast-subcontainer"> -->
-        <!-- <i id="current-overcast" class="fa-solid fa-cloud"></i> -->
         <img id="current-overcast" src="icons/sun-rain.png" alt="" />
-        <!-- <div id="current-overcast">☁</div> -->
         <div class="temperature-container">
           <span class="temperature">21</span>°
           <div class="temperature-toggle"><span class="temperature-celsius active-temperature">C</span>/<span class="temperature-fahrenheit inactive-temperature">F</span></div>
         </div>
-        <!-- </div> -->
       </div>
       <div class="additional-data-container">
         <div class="humidity-and-wind-container">
           <div class="humidity">Humidity: <span class="humidity-value">50</span><span class="humidity-unit">%</span></div>
           <div class="wind">
             <div>Wind: <span class="wind-value">3</span><span class="wind-unit">km/h</span> <span class="wind-direction">↗</span></div>
-            <!-- <div>Wind: <span class="wind-value">3</span><span class="wind-unit">km/h</span> <img src="icons/arrow.png" alt="" class="wind-direction-arrow" /></div> -->
           </div>
         </div>
         <div class="sun">
@@ -51,34 +44,30 @@
           <div>Sunset: <i class="fa-solid fa-arrow-down-long"></i> <span class="sunset">21:34</span></div>
         </div>
       </div>
-      <div class="search-btn-container">
-        <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <div class="open-search-container">
+        <button class="btn-open-search"><i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
       <div class="forecast-container">
         <div><canvas id="myChart"></canvas></div>
       </div>
     </div>
-    <div class="search-overlay-container">
+    <div class="search-container-background">
       <div class="search-container">
         <div class="search-subcontainer">
-          <div class="search-container-top">
+          <div class="search-top-section-container">
             <div class="text-search-container">
-              <input type="text" class="input-search" placeholder="Enter City Name..." />
-              <!-- <button class="btn-search">🔍</button> -->
-              <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+              <input type="text" class="text-search-input" placeholder="Enter City Name..." />
+              <button class="text-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-            <!-- <button class="btn-map-search btn-map-inactive" data-status="inactive"><i class="fa-solid fa-map-location-dot"></i></button> -->
-            <button class="btn-map-search btn-map-inactive" data-status="inactive"><img src="icons/map.png" alt="" class="btn-map-img" /></button>
-            <!-- <button class="btn-map-search btn-map-inactive" data-status="inactive"></button> -->
-            <!-- <div class="btn-map-search btn-map-inactive" data-status="inactive"><img src="icons/map.png" alt="" class="btn-map-img" /></div> -->
+            <button class="map-toggle-btn map-toggle-btn-inactive" data-status="inactive"><img src="icons/map.png" alt="" class="map-toggle-btn-img" /></button>
           </div>
           <div class="content-container">
             <div class="results-container hidden">
-              <ul class="search-results"></ul>
+              <ul class="search-result"></ul>
             </div>
             <div class="map-search-container hidden">
               <div id="map"></div>
-              <div class="map-buttons">
+              <div class="map-buttons-container">
                 <button class="btn-map-cancel">Cancel</button>
                 <button class="btn-map-confirm">Confirm</button>
               </div>

@@ -3,13 +3,13 @@ let forecast; // This is what the chart will be assigned to. It is defined here 
 const appContainer = document.querySelector(".app-container");
 
 // // SEARCH BUTTON
-const btnSearch = document.querySelector(".search-btn");
-const containerSearchOverlay = document.querySelector(".search-overlay-container");
+const btnOpenSearch = document.querySelector(".btn-open-search");
+const containerSearchOverlay = document.querySelector(".search-container-background");
 const searchContainer = document.querySelector(".search-container");
-const inputSearchCity = document.querySelector(".input-search");
+const inputSearchCity = document.querySelector(".text-search-input");
 
 // Opening the search window when pressing on the search symbol
-btnSearch.addEventListener("click", function () {
+btnOpenSearch.addEventListener("click", function () {
   containerSearchOverlay.classList.toggle("hidden");
   appContainer.classList.add("blurry");
   inputSearchCity.focus();
@@ -443,19 +443,18 @@ const getWindDirectionSymbol = function (deg) {
   return directions[id];
 };
 
-const searchField = document.querySelector(".input-search");
-const searchResultList = document.querySelector(".search-results");
+const searchResultList = document.querySelector(".search-result");
 const resultsContainer = document.querySelector(".results-container");
 const loaderContainer = document.querySelector(".loader-container");
 
-searchField.addEventListener("keypress", function (e) {
+inputSearchCity.addEventListener("keypress", function (e) {
   if (e.key !== "Enter") return;
   searchResultList.innerHTML = "";
   searchAndDisplayResults(e.target.value);
 
   // In case the map was already toggled on when using the text search, deactivate the toggle again
-  btnMapSearch.classList.add("btn-map-inactive");
-  btnMapSearch.classList.remove("btn-map-active");
+  btnMapSearch.classList.add("map-toggle-btn-inactive");
+  btnMapSearch.classList.remove("map-toggle-btn-active");
   btnMapSearch.dataset.status = "inactive";
 
   this.value = "";
@@ -566,20 +565,20 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 const mapContainer = document.querySelector(".map-search-container");
-const btnMapSearch = document.querySelector(".btn-map-search");
+const btnMapSearch = document.querySelector(".map-toggle-btn");
 const btnMapCancel = document.querySelector(".btn-map-cancel");
 const btnMapConfirm = document.querySelector(".btn-map-confirm");
 
 btnMapSearch.addEventListener("click", function (e) {
   if (this.dataset.status === "inactive") {
-    this.classList.remove("btn-map-inactive");
-    this.classList.add("btn-map-active");
+    this.classList.remove("map-toggle-btn-inactive");
+    this.classList.add("map-toggle-btn-active");
     this.dataset.status = "active";
     mapContainer.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
   } else {
-    this.classList.add("btn-map-inactive");
-    this.classList.remove("btn-map-active");
+    this.classList.add("map-toggle-btn-inactive");
+    this.classList.remove("map-toggle-btn-active");
     this.dataset.status = "inactive";
     mapContainer.classList.add("hidden");
     // resultsContainer.classList.remove("hidden");
@@ -593,13 +592,12 @@ btnMapSearch.addEventListener("click", function (e) {
 
 btnMapCancel.addEventListener("click", function () {
   mapContainer.classList.add("hidden");
-  btnMapSearch.classList.add("btn-map-inactive");
-  btnMapSearch.classList.remove("btn-map-active");
+  btnMapSearch.classList.add("map-toggle-btn-inactive");
+  btnMapSearch.classList.remove("map-toggle-btn-active");
   btnMapSearch.dataset.status = "inactive";
 });
 
 btnMapConfirm.addEventListener("click", function () {
-  // mapContainer.classList.add("hidden");
   const { lat, lng } = mapMarker.getLatLng();
   appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lng);
