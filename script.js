@@ -100,7 +100,7 @@ const getOvercastSymbol = function (id, iconType) {
 const colorGridLines = "rgba(255, 255, 255, 0.1)";
 const colorMainAxis = "rgba(255, 255, 255, 0.4)";
 const colorAxisSymbols = "rgba(255, 255, 255, 0.8)";
-const colorAxisLabels = "rgba(255, 255, 255, 0.4)";
+const colorAxisLabels = "rgba(255, 255, 255, 0.5)";
 const colorAnnotationsLine = "rgba(3, 218, 198, 0.8)";
 const colorAnnotationsLabelBG = "rgba(3, 218, 198, 1)";
 const colorTempCurve = "rgb(227, 50, 50)";
@@ -109,6 +109,8 @@ const colorRainBars = "rgb(84, 178, 255)";
 
 const createForecastChart = function (temperatures, timeLabels, overcastSymbols, rain, timeStamps) {
   let annotationsArray = {};
+  const highestTemp = Math.max(...temperatures);
+  console.log(highestTemp);
 
   // This function creates the objects for the day annotations on the x-axis
   const createAnnotations = function () {
@@ -205,7 +207,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
     options: {
       scales: {
         y: {
-          beginAtZero: true,
+          // beginAtZero: true,
           ticks: {
             callback: function (value) {
               return value + "°C";
@@ -224,6 +226,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
             borderColor: colorMainAxis,
             color: colorGridLines,
           },
+          // max: Math.round(highestTemp + 5),
         },
         rainAxis: {
           position: "right",
@@ -374,7 +377,8 @@ const elTownName = document.querySelector(".location-town");
 const elStateAndCountry = document.querySelector(".location-state-and-country");
 const elCurrentTemp = document.querySelector(".temperature");
 const elHumidity = document.querySelector(".humidity-value");
-const elWind = document.querySelector(".wind-value");
+const elWindSpeed = document.querySelector(".wind-value");
+const elWindDirection = document.querySelector(".wind-direction");
 const elCurrentOvercast = document.querySelector("#current-overcast");
 const elSunrise = document.querySelector(".sunrise");
 const elSunset = document.querySelector(".sunset");
@@ -390,7 +394,7 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   const country = countryName ? countryName : addData.address.country;
   const temp = Math.round(weatherData.main.temp);
   const humidity = weatherData.main.humidity;
-  const wind = weatherData.wind.speed;
+  const windSpeed = Math.round(weatherData.wind.speed * 3.6); // converting the default unit of meters/sec to km/h
   const windDirection = weatherData.wind.deg;
   const timezone = weatherData.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
   const sunrise = dayjs((weatherData.sys.sunrise + timezone) * 1000).format("HH:mm");
@@ -401,15 +405,20 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   elStateAndCountry.textContent = `${state ? `${state}, ` : ""} ${country}`;
   elCurrentTemp.textContent = temp;
   elHumidity.textContent = humidity;
-  elWind.textContent = wind;
+  elWindSpeed.textContent = windSpeed;
+  elWindDirection.textContent = getWindDirectionSymbol(windDirection);
   elSunrise.textContent = sunrise;
   elSunset.textContent = sunset;
-  // elCurrentOvercast.textContent = weatherSymbol;
-  // console.log(elCurrentOvercast.classList);
-  // elCurrentOvercast.classList = `fa-solid ${weatherSymbol}`;
   elCurrentOvercast.src = `icons/${weatherSymbol}`;
 
   containerSearchOverlay.classList.add("hidden");
+};
+
+const getWindDirectionSymbol = function (deg) {
+  // const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+  const directions = ["⬆", "↗", "➡", "↘", "⬇", "↙", "⬅", "↖"];
+  const id = Math.trunc(deg / 45);
+  return directions[id];
 };
 
 const searchField = document.querySelector(".input-search");

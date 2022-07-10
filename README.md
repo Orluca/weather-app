@@ -1,4 +1,5 @@
 # weather-app
+
 https://orluca.github.io/weather-app/
 A simple weather app created with Vanilla JS and ChartJS.
 
@@ -15,11 +16,11 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] better loading spinner
 - [ ] animations
 - [x] better icons
-- [ ] figure out color scheme
+- [x] figure out color scheme
 - [ ] make search window responsive
 - [ ] refactor everything
 - [x] closing modal window by clicking into background should be disabled on startup (if forecast exists...)
-- [ ] implement wind direction functionality
+- [x] implement wind direction functionality
 - [x] if you click on the 'open map' button while the map is already open, the map should close
 - [x] also, the map button should be a TOGGLE, meaning it stays pressed as long as the map is open
 - [ ] the map confirm and cancel buttons are still a bit ugly
@@ -31,6 +32,9 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] units of the rain axis?
 - [ ] BUG: search window doesn't always close after confirming search
 - [ ] to avoid clipping between the °C datalabels and the overcast symbols, it might be good to always have around 3-4°C of 'leeway' between the highest yaxis value and the highest temp point
-Alle Sonnensymbole zu mond in nacht
+- [ ] Alle Sonnensymbole zu mond in nacht
+- [ ] figure out why overcast symbols/times and the datalabels of temps arent aligned
+- [ ] icon/link to Github repo
+- [ ] wenn karte bereit offen ist und man dann einen text search macht, sollte der map button toggle wieder deaktivieren
 
 icon creators: freepik, surang, creative stall premium, good ware
