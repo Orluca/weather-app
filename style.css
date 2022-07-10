@@ -201,7 +201,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* ######################################################## */
 .search-container-background {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
+  height: -webkit-fill-available;
   background-color: rgba(1, 1, 1, 0.4);
   z-index: 1;
   position: fixed;
@@ -341,7 +342,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   border-radius: 10px;
   border: none;
   box-shadow: 2px 2px 5px #000000;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .btn-map-cancel {
@@ -356,7 +357,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 .btn-map-confirm {
   background-color: greenyellow;
-  color: var(--element-bg-color);
+  color: var(--bg-color);
 }
 
 .btn-map-confirm:hover {

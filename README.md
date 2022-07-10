@@ -41,6 +41,7 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] Alle Sonnensymbole zu mond in nacht für chart symbols
 - [ ] icon/link to Github repo
 - [ ] für wind richtung vielleicht anderes symbol statt pfeil (kompass wäre sexy)
+- [ ] the line up of the overcast symbols still needs to be fixed (gets especially obvious when comparing to rain amount bars)
 
 ### possible additional components
 
