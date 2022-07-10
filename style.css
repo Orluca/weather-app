@@ -30,6 +30,30 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* ################################################ */
+/* ################### SCROLLBAR ################## */
+/* ################################################ */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #979797;
+  border-radius: 15px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(84, 84, 84);
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 /* ######################################################### */
 /* ##################### APP CONTAINER ##################### */
 /* ######################################################### */
@@ -162,6 +186,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   background-color: var(--highlight-color-1);
   color: var(--bg-color);
   box-shadow: 2px 4px 5px #000000;
+  border: none;
 }
 
 .btn-open-search:hover {
@@ -186,8 +211,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 .search-container {
-  width: 60%;
-  height: 70%;
+  width: 60vw;
+  height: 70vh;
 }
 
 .search-subcontainer {
@@ -195,6 +220,10 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   border-radius: 1rem;
   background-color: var(--bg-color);
   box-shadow: 3px 3px 10px #000000;
+  max-height: 100%;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
 }
 
 /* ######################################################## */
@@ -268,6 +297,10 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   height: calc(1.5vw + 1vh);
 }
 
+/* .map-toggle-btn-img {
+  height: calc(4vw + 1vh);
+} */
+
 .map-toggle-btn-active {
   background-color: var(--highlight-color-1);
   border: 1px solid rgb(33, 33, 33);
@@ -335,7 +368,23 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* ########### TEXT SEARCH RESULTS SECTION ########### */
 /* ################################################### */
 .content-container {
-  margin: 1rem;
+  margin: 0 1rem 1rem 1rem;
+  /* overflow: scroll; */
+  /* border: 1px solid white; */
+  /* max-height: 65vh; */
+  /* max-height: 100%; */
+  /* position: absolute; */
+  /* left: 0;
+  right: 0; */
+  /* min-height: 0px; */
+  overflow: auto;
+  /* justify-content: space-between; */
+}
+
+.results-container {
+  /* overflow: scroll; */
+  height: 50%;
+  /* border: 1px solid white; */
 }
 
 /* ########################################## */
@@ -371,6 +420,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 .list-item-container {
   display: flex;
   justify-content: space-between;
+  font-size: clamp(0.9rem, 1vw + 0.5vh, 1rem);
 }
 
 .list-item-container > img {
@@ -382,6 +432,9 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
+  height: 50%;
+  overflow: hidden;
+  /* overflow: auto; */
 }
 
 .search-result > div {
@@ -441,6 +494,21 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .location-state-and-country {
     font-size: clamp(0.6rem, 0.75vw + 0.75vh, 2rem);
   }
+  .search-container {
+    width: 75vw;
+  }
+  .map-toggle-btn-img {
+    height: calc(2vw + 1vh);
+  }
+  .text-search-container {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .text-search-container {
+    width: 75%;
+  }
 }
 
 @media only screen and (max-width: 565px) {
@@ -456,8 +524,26 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .additional-data-container {
     grid-row: 12 / 14;
   }
-  .search-btn-container {
+  .open-search-container {
     grid-row: 12 / 14;
+  }
+  .search-container {
+    width: 90vw;
+  }
+  .search-result > div {
+    padding: 0.5rem 1rem;
+  }
+  .search-top-section-container {
+    justify-content: space-between;
+  }
+  .text-search-container {
+    padding: 0.5rem 0.8rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .map-toggle-btn-img {
+    height: calc(4vw + 1vh);
   }
 }
 
@@ -471,7 +557,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .additional-data-container {
     grid-row: 11 / 13;
   }
-  .search-btn-container {
+  .open-search-container {
     grid-row: 11 / 13;
   }
 }
@@ -486,7 +572,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .additional-data-container {
     grid-row: 10 / 12;
   }
-  .search-btn-container {
+  .open-search-container {
     grid-row: 10 / 12;
   }
 }
@@ -501,7 +587,36 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .additional-data-container {
     grid-row: 9 / 11;
   }
-  .search-btn-container {
+  .open-search-container {
     grid-row: 9 / 11;
   }
+}
+
+@media only screen and (max-height: 700px) {
+  .search-container {
+    height: 90vh;
+  }
+  .map-toggle-btn-img {
+    height: calc(4vw + 2vh);
+  }
+}
+
+/* .test {
+  color: white;
+  height: 65vh;
+  overflow: auto;
+} */
+
+body::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: orange; /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: blue; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid orange; /* creates padding around scroll thumb */
 }

@@ -464,6 +464,7 @@ const searchAndDisplayResults = async function (cityName) {
   resultsContainer.classList.remove("hidden");
   loaderContainer.classList.remove("hidden");
   mapContainer.classList.add("hidden");
+  contentContainer.classList.remove("hidden");
 
   // There are a lot of search results, that for some reason are missing the name of the current city/town/village, so I'm using the typed-in name, instead of getting it from the API data
   const name = cityName
@@ -568,6 +569,7 @@ const mapContainer = document.querySelector(".map-search-container");
 const btnMapSearch = document.querySelector(".map-toggle-btn");
 const btnMapCancel = document.querySelector(".btn-map-cancel");
 const btnMapConfirm = document.querySelector(".btn-map-confirm");
+const contentContainer = document.querySelector(".content-container");
 
 btnMapSearch.addEventListener("click", function (e) {
   if (this.dataset.status === "inactive") {
@@ -575,12 +577,14 @@ btnMapSearch.addEventListener("click", function (e) {
     this.classList.add("map-toggle-btn-active");
     this.dataset.status = "active";
     mapContainer.classList.remove("hidden");
+    contentContainer.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
   } else {
     this.classList.add("map-toggle-btn-inactive");
     this.classList.remove("map-toggle-btn-active");
     this.dataset.status = "inactive";
     mapContainer.classList.add("hidden");
+    contentContainer.classList.add("hidden");
     // resultsContainer.classList.remove("hidden");
   }
 

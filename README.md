@@ -28,9 +28,10 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] der button vom text search funktioniert noch nicht
 - [x] day annotations not working in some cases (e.g. northern ireland)
 - [x] datapoints on chart still way to ugly
+- [x] make search window responsive
+- [x] zuviel abstand zwischen map/search results und der top section
 - [ ] make search more elegant: only close search window once the forecast and everything else has loaded
 - [ ] animations
-- [ ] make search window responsive
 - [ ] refactor everything
 - [ ] the map confirm and cancel buttons are still a bit ugly
 - [ ] tooltips for chart points. also maybe a crosshair?
