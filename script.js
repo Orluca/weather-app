@@ -109,14 +109,19 @@ const colorRainBars = "rgb(84, 178, 255)";
 
 const createForecastChart = function (temperatures, timeLabels, overcastSymbols, rain, timeStamps) {
   let annotationsArray = {};
-  const highestTemp = Math.max(...temperatures);
-  console.log(highestTemp);
+  // const highestTemp = Math.max(...temperatures);
+  // console.log(highestTemp);
 
   // This function creates the objects for the day annotations on the x-axis
   const createAnnotations = function () {
+    // Finding the first measurement of the day, so we can place the day annotations
+    const hours = timeStamps.map((ts) => Number(dayjs(ts).format("HH")));
+    const hoursUnique = [...new Set(hours)];
+    const firstMeasurementOfDay = Math.min(...hoursUnique);
+
     const getPositions = function () {
       timeStamps.forEach((ts, i) => {
-        if (dayjs(ts).format("HH") === "02" && i !== 0) {
+        if (Number(dayjs(ts).format("HH")) === firstMeasurementOfDay && i !== 0) {
           const dayName = dayjs(ts).format("dddd");
           createAnnotationObject(i, dayName);
         }
@@ -125,8 +130,10 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
     const createAnnotationObject = function (pos, dayName) {
       annotationsArray[dayName] = {
         type: "line",
-        xMin: pos - 2 / 3,
-        xMax: pos - 2 / 3,
+        xMin: pos - firstMeasurementOfDay / 3,
+        // xMin: pos,
+        xMax: pos - firstMeasurementOfDay / 3,
+        // xMax: pos,
         borderColor: colorAnnotationsLine,
         label: {
           enabled: true,
@@ -267,10 +274,15 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               };
             },
             color: colorAxisLabels,
+            // align: "inner",
+            // crossAlign: "far",
+            // labelOffset: -10,
+            // maxRotation: 90,
           },
           grid: {
             borderColor: colorMainAxis,
             color: colorGridLines,
+            display: false,
           },
         },
         x2: {
@@ -278,6 +290,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           position: "top",
           ticks: {
             callback: function (value, index, ticks) {
+              if (value >= overcastSymbols.length - 1) return; // don't show the very last symbol (purely cosmetic reasons)
               return overcastSymbols[value];
             },
             font: function (context) {
@@ -289,6 +302,8 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               };
             },
             maxRotation: 0,
+            align: "start",
+            labelOffset: 5,
             // color: colorAxisSymbols,
             color: function (value) {
               // console.log(value);
