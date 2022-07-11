@@ -404,6 +404,13 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   /* border: 1px solid white; */
 }
 
+.text-search-error {
+  color: red;
+  text-align: center;
+  font-size: clamp(0.6rem, 1vw, 2rem);
+  margin: 0 0 1rem 0;
+}
+
 /* ########################################## */
 /* ################# LOADER ################# */
 /* ########################################## */

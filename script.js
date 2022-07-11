@@ -106,12 +106,9 @@ const colorAnnotationsLine = "rgba(3, 218, 198, 0.8)";
 const colorAnnotationsLabelBG = "rgba(3, 218, 198, 1)";
 const colorTempCurve = "rgb(227, 50, 50)";
 const colorRainBars = "rgb(84, 178, 255)";
-// const colorRainBars = "green";
 
 const createForecastChart = function (temperatures, timeLabels, overcastSymbols, rain, timeStamps) {
   let annotationsArray = {};
-  // const highestTemp = Math.max(...temperatures);
-  // console.log(highestTemp);
 
   // This function creates the objects for the day annotations on the x-axis
   const createAnnotations = function () {
@@ -282,6 +279,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           grid: {
             borderColor: colorMainAxis,
             color: colorGridLines,
+            display: false,
           },
           offset: true,
         },
@@ -445,7 +443,7 @@ inputSearchCity.addEventListener("keypress", function (e) {
   searchResultList.innerHTML = "";
   searchAndDisplayResults(e.target.value);
 
-  // In case the map was already toggled on when using the text search, deactivate the toggle again
+  // Deactivate the map toggle button, in case it was turned on
   btnMapSearch.classList.add("map-toggle-btn-inactive");
   btnMapSearch.classList.remove("map-toggle-btn-active");
   btnMapSearch.dataset.status = "inactive";
@@ -453,13 +451,12 @@ inputSearchCity.addEventListener("keypress", function (e) {
   this.value = "";
 });
 
-const searchAndDisplayResults = async function (cityName) {
-  resultsContainer.classList.remove("hidden");
-  loaderContainer.classList.remove("hidden");
-  mapContainer.classList.add("hidden");
-  contentContainer.classList.remove("hidden");
+const textSearchErrorMsg = document.querySelector(".text-search-error");
 
-  // There are a lot of search results, that for some reason are missing the name of the current city/town/village, so I'm using the typed-in name, instead of getting it from the API data
+const searchAndDisplayResults = async function (cityName) {
+  mapContainer.classList.add("hidden");
+
+  // There are a lot of search results, that for some reason are missing the name of the current city/town/village, so I'm using the typed-in name as the displayed name, instead of getting it from the API data
   const name = cityName
     .toLowerCase()
     .split(" ")
@@ -470,6 +467,17 @@ const searchAndDisplayResults = async function (cityName) {
   const locations = await fetch(`https://nominatim.openstreetmap.org/search.php?city=${cityName}&format=jsonv2`)
     .then((response) => response.json())
     .then((data) => data);
+
+  // The API doesn't seem to throw error messages, just an empty array if the location doesn't exists, so I'm catching the error like this
+  if (!locations.length) {
+    textSearchErrorMsg.classList.remove("hidden");
+    return;
+  }
+
+  textSearchErrorMsg.classList.add("hidden"); // In case there was an error on a previous search
+  resultsContainer.classList.remove("hidden");
+  loaderContainer.classList.remove("hidden");
+  contentContainer.classList.remove("hidden");
 
   // Filter out locations that are NOT a city, town, village, hamlet
   const citiesOnly = locations.filter((loc) => {
@@ -599,7 +607,6 @@ const mapErrorMsg = document.querySelector(".map-error");
 btnMapConfirm.addEventListener("click", function () {
   // Check if the user has chosen a location on the map. If not, display an error message
   if (!mapMarker) {
-    console.log("please chooose location");
     mapErrorMsg.classList.remove("hidden");
     return;
   }
