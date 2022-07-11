@@ -600,6 +600,9 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 @media only screen and (max-height: 700px) {
+  body {
+    background-color: #bb86fc;
+  }
   .search-container {
     height: 90%;
   }
