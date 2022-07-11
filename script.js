@@ -279,7 +279,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           grid: {
             borderColor: colorMainAxis,
             color: colorGridLines,
-            display: false,
+            // display: false,
           },
           offset: true,
         },
@@ -376,7 +376,6 @@ const getCurrentWeather = async function (lat, lon, name, state, country) {
     .then((response) => response.json())
     .then((data) => {
       updateUI(data, name, state, country);
-      // console.log(data);
     })
     .catch((err) => console.log("City does not exist"));
 };
@@ -397,10 +396,7 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
     .then((response) => response.json())
     .then((data) => data);
 
-  // console.log(weatherData);
-
   const isNight = weatherData.dt > weatherData.sys.sunset || weatherData.dt < weatherData.sys.sunrise ? true : false; // check if it is currently night in the location, so that the 'moon' weather symbol can be used instead of the 'sun' symbol
-  // console.log(isNight);
 
   const name = cityName ? cityName : weatherData.name;
   const state = stateName ? stateName : addData.address.state;
@@ -425,6 +421,8 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   elCurrentOvercast.src = `icons/${weatherSymbol}`;
 
   containerSearchOverlay.classList.add("hidden");
+  // appContainer.classList.remove("hidden");
+  // appContainer.classList.remove("blurry");
 };
 
 const getWindDirectionSymbol = function (deg) {
@@ -553,9 +551,9 @@ searchResultList.addEventListener("click", function (e) {
   const name = responsibleContainer.dataset.name;
   const state = responsibleContainer.dataset.state;
   const country = responsibleContainer.dataset.country;
-  appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lon, name, state, country);
   getForecastData(lat, lon);
+  appContainer.classList.remove("hidden");
   appContainer.classList.remove("blurry");
 });
 
@@ -622,6 +620,7 @@ let mapMarker;
 let mapMarkerLayer;
 
 map.on("click", function (e) {
+  console.log("LSKJDFLK");
   mapMarkerLayer?.clearLayers();
   const { lat, lng } = e.latlng;
   mapMarker = L.marker([lat, lng], {
@@ -630,6 +629,15 @@ map.on("click", function (e) {
     autoPan: true,
   });
   mapMarkerLayer = L.layerGroup([mapMarker]).addTo(map);
+});
+
+// If the ERROR message is present on the map, remove as soon as the user starts zooming or moving the map
+map.on("moveend", function () {
+  mapErrorMsg.classList.add("hidden");
+});
+
+map.on("zoomend", function () {
+  mapErrorMsg.classList.add("hidden");
 });
 
 // SWITCHING CELSIUS <-> FAHRENHEIT
