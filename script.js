@@ -415,21 +415,26 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
   elCurrentTemp.textContent = temp;
   elHumidity.textContent = humidity;
   elWindSpeed.textContent = windSpeed;
-  elWindDirection.textContent = getWindDirectionSymbol(windDirection);
+  // elWindDirection.textContent = getWindDirectionSymbol(windDirection);
   elSunrise.textContent = sunrise;
   elSunset.textContent = sunset;
   elCurrentOvercast.src = `icons/${weatherSymbol}`;
+
+  setWindDirectionSymbol(windDirection);
 
   containerSearchOverlay.classList.add("hidden");
   // appContainer.classList.remove("hidden");
   // appContainer.classList.remove("blurry");
 };
 
-const getWindDirectionSymbol = function (deg) {
+const windDirectionArrow = document.querySelector(".wind-direction");
+const setWindDirectionSymbol = function (deg) {
   // const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-  const directions = ["⬆", "↗", "➡", "↘", "⬇", "↙", "⬅", "↖"];
+  // const directions = ["⬆", "↗", "➡", "↘", "⬇", "↙", "⬅", "↖"];
+  const directions = ["-45", "0", "45", "90", "135", "180", "225", "270"];
   const id = Math.trunc(deg / 45);
-  return directions[id];
+  windDirectionArrow.style.transform = `rotate(${directions[id]}deg)`;
+  // return directions[id];
 };
 
 const searchResultList = document.querySelector(".search-result");
@@ -598,6 +603,7 @@ btnMapCancel.addEventListener("click", function () {
   btnMapSearch.classList.add("map-toggle-btn-inactive");
   btnMapSearch.classList.remove("map-toggle-btn-active");
   btnMapSearch.dataset.status = "inactive";
+  contentContainer.classList.add("hidden");
 });
 
 const mapErrorMsg = document.querySelector(".map-error");
@@ -620,7 +626,6 @@ let mapMarker;
 let mapMarkerLayer;
 
 map.on("click", function (e) {
-  console.log("LSKJDFLK");
   mapMarkerLayer?.clearLayers();
   const { lat, lng } = e.latlng;
   mapMarker = L.marker([lat, lng], {
