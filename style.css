@@ -21,12 +21,18 @@
   margin: 0;
 }
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
   font-family: "Inter", sans-serif;
 }
 
@@ -39,19 +45,19 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #979797;
+  background: rgb(84, 84, 84);
   border-radius: 15px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(84, 84, 84);
+  background: #979797;
   border-radius: 15px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgb(182, 182, 182);
 }
 
 /* ######################################################### */
@@ -201,8 +207,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* ######################################################## */
 .search-container-background {
   width: 100vw;
-  /* height: 100vh; */
-  height: -webkit-fill-available;
+  height: 100vh;
+  /* height: -webkit-fill-available; */
   background-color: rgba(1, 1, 1, 0.4);
   z-index: 1;
   position: fixed;
