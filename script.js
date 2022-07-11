@@ -198,6 +198,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           data: temperatures,
           borderWidth: 5,
           borderColor: colorTempCurve,
+          borderCapStyle: "round",
           tension: 0.1,
           pointBackgroundColor: colorTempCurve,
           pointBorderWidth: 0,
@@ -593,7 +594,16 @@ btnMapCancel.addEventListener("click", function () {
   btnMapSearch.dataset.status = "inactive";
 });
 
+const mapErrorMsg = document.querySelector(".map-error");
+
 btnMapConfirm.addEventListener("click", function () {
+  // Check if the user has chosen a location on the map. If not, display an error message
+  if (!mapMarker) {
+    console.log("please chooose location");
+    mapErrorMsg.classList.remove("hidden");
+    return;
+  }
+  mapErrorMsg.classList.add("hidden");
   const { lat, lng } = mapMarker.getLatLng();
   appContainer.classList.remove("hidden");
   getCurrentWeather(lat, lng);

@@ -30,6 +30,7 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] datapoints on chart still way to ugly
 - [x] make search window responsive
 - [x] zuviel abstand zwischen map/search results und der top section
+- [x] the line up of the overcast symbols still needs to be fixed (gets especially obvious when comparing to rain amount bars)
 - [ ] make search more elegant: only close search window once the forecast and everything else has loaded
 - [ ] animations
 - [ ] refactor everything
@@ -37,11 +38,10 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] tooltips for chart points. also maybe a crosshair?
 - [ ] make 'small' window layout the default for full as well?
 - [ ] ERROR handling isn't implemented at all so far
-- [ ] BUG: search window doesn't always close after confirming search
-- [ ] Alle Sonnensymbole zu mond in nacht für chart symbols
+- [ ] BUG: search window doesn't always close after confirming search (or it just really takes a long time to close?)
+- [ ] Alle Sonnensymbole zu mond in nacht für CHART symbols
 - [ ] icon/link to Github repo
 - [ ] für wind richtung vielleicht anderes symbol statt pfeil (kompass wäre sexy)
-- [ ] the line up of the overcast symbols still needs to be fixed (gets especially obvious when comparing to rain amount bars)
 
 ### possible additional components
 
@@ -49,3 +49,8 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] local time dazufügen?
 
 icon creators: freepik, surang, creative stall premium, good ware, alfredo hernandez
+
+### possible error situations
+
+- user types in city name that doesn't exist
+- user presses confirm button without having selected anything on the map

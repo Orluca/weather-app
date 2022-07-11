@@ -318,6 +318,10 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   background-color: var(--app-bg-color);
 }
 
+/* ################################### */
+/* ############### MAP ############### */
+/* ################################### */
+
 #map {
   height: 50vh;
   width: 100%;
@@ -329,6 +333,12 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+}
+
+.map-error {
+  text-align: center;
+  color: red;
+  font-size: clamp(0.6rem, 0.85vw, 2rem);
 }
 
 /* ############################################################ */
