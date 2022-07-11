@@ -206,8 +206,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* ################### SEARCH CONTAINER ################### */
 /* ######################################################## */
 .search-container-background {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   /* height: -webkit-fill-available; */
   background-color: rgba(1, 1, 1, 0.4);
   z-index: 1;
@@ -601,7 +601,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 @media only screen and (max-height: 700px) {
   .search-container {
-    height: 90vh;
+    height: 80%;
   }
   .map-toggle-btn-img {
     height: calc(4vw + 2vh);
