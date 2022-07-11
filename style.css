@@ -212,8 +212,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 .search-container {
-  width: 60vw;
-  height: 70vh;
+  width: 60%;
+  height: 70%;
 }
 
 .search-subcontainer {
