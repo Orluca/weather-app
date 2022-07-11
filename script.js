@@ -58,7 +58,7 @@ const getRain = function (data) {
 };
 
 const getOvercastSymbols = function (data) {
-  console.log(data);
+  // console.log(data);
   return data.list.map((entry) => getOvercastSymbol(entry.weather[0].id, "emoji"));
 };
 
@@ -198,10 +198,11 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
           data: temperatures,
           borderWidth: 5,
           borderColor: colorTempCurve,
-          tension: 0.2,
+          tension: 0.1,
           pointBackgroundColor: colorTempCurve,
           pointBorderWidth: 0,
           pointRadius: 0,
+          borderJoinStyle: "round",
         },
         {
           type: "bar",
@@ -276,23 +277,17 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               };
             },
             color: colorAxisLabels,
-            // align: "inner",
-            // crossAlign: "far",
-            // labelOffset: -10,
-            // maxRotation: 90,
           },
           grid: {
             borderColor: colorMainAxis,
             color: colorGridLines,
-            display: false,
           },
+          offset: true,
         },
         x2: {
-          type: "category",
           position: "top",
           ticks: {
             callback: function (value, index, ticks) {
-              if (value >= overcastSymbols.length - 1) return; // don't show the very last symbol (purely cosmetic reasons)
               return overcastSymbols[value];
             },
             font: function (context) {
@@ -304,11 +299,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
               };
             },
             maxRotation: 0,
-            align: "start",
-            labelOffset: 5,
-            // color: colorAxisSymbols,
             color: function (value) {
-              // console.log(value);
               if (value.tick.label === "☀") return "rgb(255, 241, 107)";
               if (value.tick.label === "⛅") return "rgb(255, 246, 161)"; // seems to not be working?
               if (value.tick.label === "🌧") return "rgb(57, 114, 204)";
@@ -324,6 +315,7 @@ const createForecastChart = function (temperatures, timeLabels, overcastSymbols,
             drawOnChartArea: false,
             drawTicks: false,
           },
+          offset: true, // aligning the top x axis with the bottom one
         },
       },
       plugins: {
@@ -406,10 +398,10 @@ const updateUI = async function (weatherData, cityName, stateName, countryName) 
     .then((response) => response.json())
     .then((data) => data);
 
-  console.log(weatherData);
+  // console.log(weatherData);
 
   const isNight = weatherData.dt > weatherData.sys.sunset || weatherData.dt < weatherData.sys.sunrise ? true : false; // check if it is currently night in the location, so that the 'moon' weather symbol can be used instead of the 'sun' symbol
-  console.log(isNight);
+  // console.log(isNight);
 
   const name = cityName ? cityName : weatherData.name;
   const state = stateName ? stateName : addData.address.state;
