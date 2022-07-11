@@ -601,7 +601,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 @media only screen and (max-height: 700px) {
   .search-container {
-    height: 80%;
+    height: 90%;
   }
   .map-toggle-btn-img {
     height: calc(4vw + 2vh);
