@@ -511,6 +511,10 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   -webkit-filter: blur(8px);
 }
 
+.invisible {
+  opacity: 0;
+}
+
 /* ####################################################### */
 /* #################### MEDIA QUERIES #################### */
 /* ####################################################### */
