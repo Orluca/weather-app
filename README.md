@@ -12,35 +12,6 @@ A simple weather app created with Vanilla JS and ChartJS.
 
 ### todos
 
-- [x] better loading spinner
-- [x] better icons
-- [x] figure out color scheme
-- [x] closing modal window by clicking into background should be disabled on startup (if forecast exists...)
-- [x] implement wind direction functionality
-- [x] if you click on the 'open map' button while the map is already open, the map should close
-- [x] also, the map button should be a TOGGLE, meaning it stays pressed as long as the map is open
-- [x] timezones sind auf der x achse noch nicht mit einberechnet
-- [x] units of the rain axis?
-- [x] to avoid clipping between the °C datalabels and the overcast symbols, it might be good to always have around 3-4°C of 'leeway' between the highest yaxis value and the highest temp point
-- [x] figure out why overcast symbols/times and the datalabels of temps arent aligned
-- [x] wenn karte bereit offen ist und man dann einen text search macht, sollte der map button toggle wieder deaktivieren
-- [x] last rain mm tick and last forecast symbol kommen sich in die quere. vl letztes overcast symbol einfach auslassen?
-- [x] der button vom text search funktioniert noch nicht
-- [x] day annotations not working in some cases (e.g. northern ireland)
-- [x] datapoints on chart still way to ugly
-- [x] make search window responsive
-- [x] zuviel abstand zwischen map/search results und der top section
-- [x] the line up of the overcast symbols still needs to be fixed (gets especially obvious when comparing to rain amount bars)
-- [x] ERROR handling isn't implemented at all so far
-- [x] für wind richtung vielleicht anderes symbol statt pfeil (kompass wäre sexy)
-- [x] the map confirm and cancel buttons are still a bit ugly
-- [x] make 'small' window layout the default for full as well?
-- [x] refactor everything
-- [x] load map immediately on page load so that there isn't this small loading delay when opening the map toggle?
-- [x] make search more elegant: only close search window once the forecast and everything else has loaded (NEEDS REFACTOR FIRST I THINK)
-- [x] BUG: search window doesn't always close after confirming search (or it just really takes a long time to close?)
-- [ ] animations
-- [ ] tooltips for chart points. also maybe a crosshair?
 - [ ] Alle Sonnensymbole zu mond in nacht für CHART symbols
 - [ ] icon/link to Github repo
 - [ ] refactor again; wirkt immer noch alles sehr unübersichtlich
@@ -51,11 +22,6 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] local time dazufügen?
 
 ICON CREDITS: freepik, surang, creative stall premium, good ware, alfredo hernandez
-
-### possible error situations
-
-- user types in city name that doesn't exist
-- user presses confirm button without having selected anything on the map
 
 ### where to add animations
 
