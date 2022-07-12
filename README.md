@@ -35,14 +35,15 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [x] für wind richtung vielleicht anderes symbol statt pfeil (kompass wäre sexy)
 - [x] the map confirm and cancel buttons are still a bit ugly
 - [x] make 'small' window layout the default for full as well?
-- [ ] make search more elegant: only close search window once the forecast and everything else has loaded (NEEDS REFACTOR FIRST I THINK)
-- [ ] refactor everything
+- [x] refactor everything
+- [x] load map immediately on page load so that there isn't this small loading delay when opening the map toggle?
+- [x] make search more elegant: only close search window once the forecast and everything else has loaded (NEEDS REFACTOR FIRST I THINK)
+- [x] BUG: search window doesn't always close after confirming search (or it just really takes a long time to close?)
 - [ ] animations
 - [ ] tooltips for chart points. also maybe a crosshair?
-- [ ] BUG: search window doesn't always close after confirming search (or it just really takes a long time to close?)
 - [ ] Alle Sonnensymbole zu mond in nacht für CHART symbols
 - [ ] icon/link to Github repo
-- [ ] load map immediately on page load so that there isn't this small loading delay when opening the map toggle?
+- [ ] refactor again; wirkt immer noch alles sehr unübersichtlich
 
 ### possible additional components
 

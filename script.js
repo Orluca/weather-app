@@ -49,13 +49,6 @@ const $fahrenheitSymbol = document.querySelector(".temperature-fahrenheit");
 const $btnOpenSearch = document.querySelector(".btn-open-search");
 const $btnToggleTemperature = document.querySelector(".temperature-toggle");
 
-// HELPER FUNCTIONS
-const showApp = function () {
-  // $appContainer.classList.remove("hidden");
-  $appContainer.classList.remove("invisible");
-  $appContainer.classList.remove("blurry");
-};
-
 /* ################################################################################# */
 /* ############################### MAP FUNCTIONALITY ############################### */
 /* ################################################################################# */
@@ -523,7 +516,6 @@ const createForecastChart = function (data) {
           borderColor: COLOR_TEMP_CURVE,
           borderCapStyle: "round",
           tension: 0.1,
-          pointBackgroundColor: COLOR_TEMP_CURVE,
           pointBorderWidth: 0,
           pointRadius: 0,
           borderJoinStyle: "round",
@@ -560,7 +552,6 @@ const createForecastChart = function (data) {
             color: COLOR_GRID_LINES,
           },
           grace: "50%", // adding a bit of "leeway" between the highest temperature point and the may point of the y scale, so that the temp datalabels don't interfere with the overcast symbols
-          // max: Math.round(highestTemp + 5),
         },
         rainAxis: {
           position: "right",
@@ -700,9 +691,11 @@ const createApp = async function (lat, lon, name, state, country) {
   displayCurrentWeather(currentWeatherData, locationName, state, country);
   createForecastChart(forecastData);
 
-  // Unveil the app window if it is still hidden.
+  // Unveil the app window if it is still hidden and remove the blur
   $appContainer.classList.remove("invisible");
+  $appContainer.classList.remove("blurry");
 
+  // Hide the search window
   $searchWindowBackground.classList.add("hidden");
 };
 
@@ -730,18 +723,18 @@ const toggleTempUnitSymbol = function () {
   $fahrenheitSymbol.classList.toggle("active-temperature");
 };
 
-const convertCurrentTemp = function () {
-  // Convert the value of the current temperature and update the display accordingly
-  const currentTempValue = Number($currentTemp.textContent);
-  $currentTemp.textContent = currentTempUnit === "celsius" ? Math.round(celsiusToFahrenheit(currentTempValue)) : Math.round(fahrenheitToCelsius(currentTempValue));
-};
-
 const celsiusToFahrenheit = function (temp) {
   return temp * 1.8 + 32;
 };
 
 const fahrenheitToCelsius = function (temp) {
   return (temp - 32) * (5 / 9);
+};
+
+const convertCurrentTemp = function () {
+  // Convert the value of the current temperature and update the display accordingly
+  const currentTempValue = Number($currentTemp.textContent);
+  $currentTemp.textContent = currentTempUnit === "celsius" ? Math.round(celsiusToFahrenheit(currentTempValue)) : Math.round(fahrenheitToCelsius(currentTempValue));
 };
 
 const convertForecastTemps = function () {
@@ -751,6 +744,7 @@ const convertForecastTemps = function () {
   // Convert the forecast temperatures to celsius/fahrenheit
   const forecastTempsConverted = forecastTemps.map((temp) => Number(currentTempUnit === "celsius" ? celsiusToFahrenheit(temp).toFixed(2) : fahrenheitToCelsius(temp).toFixed(2)));
 
+  // Update the forecast chart with the new data
   forecast.data.datasets[0].data = forecastTempsConverted;
   forecast.options.scales["y"].ticks.callback = function (value) {
     return currentTempUnit === "celsius" ? value + "°F" : value + "°C";
