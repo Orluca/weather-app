@@ -13,7 +13,7 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] Alle Sonnensymbole zu mond in nacht für CHART symbols
 - [ ] icon/link to Github repo
 - [ ] refactor again; wirkt immer noch alles sehr unübersichtlich
-- [ ] das rumgezucke wenn der loader spinned noch fixen
+- [ ] I'm pretty sure the logic behind when to display sun/moon graphics is not yet working correctly
 
 ### where to add animations
 
