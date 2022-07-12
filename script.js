@@ -202,6 +202,9 @@ const searchAndDisplayResults = async function (cityName) {
   $searchResultsContainer.classList.remove("hidden");
   $loader.classList.remove("hidden");
 
+  // There's a visual bug when the loader is spinning, which can be fixed by temporarily turning off "overflow: auto" until the search has finished
+  $searchWindowContent.style.overflow = "visible";
+
   // Filter out locations that are NOT a city, town, village, hamlet
   const citiesOnly = locations.filter((loc) => {
     return loc.type === "city" || loc.type === "town" || loc.type === "village" || loc.type === "hamlet" || loc.type === "administrative";
@@ -264,6 +267,8 @@ const searchAndDisplayResults = async function (cityName) {
 
   // Remove the loading spinner
   $loader.classList.add("hidden");
+
+  $searchWindowContent.style.overflow = "auto";
 };
 
 // LISTEN FOR "ENTER" KEY PRESSES IN THE SEARCH FIELD
