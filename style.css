@@ -497,6 +497,24 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   cursor: pointer;
 }
 
+/* ############################################# */
+/* ################### OTHER ################### */
+/* ############################################# */
+.github-link {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  margin: 1rem;
+  font-size: clamp(1.1rem, 1.5vw + 1vh, 1.5rem);
+  color: white;
+}
+
+.github-link:hover {
+  color: rgb(90, 184, 255);
+  transform: scale(1.2);
+}
+
 /* ####################################################### */
 /* ################### UTILITY CLASSES ################### */
 /* ####################################################### */
@@ -518,9 +536,6 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* #################### MEDIA QUERIES #################### */
 /* ####################################################### */
 @media only screen and (max-width: 1200px) {
-  body {
-    background-color: blue;
-  }
   .app-container {
     grid-template-rows: 1fr 1.1fr repeat(10, 1fr) repeat(2, 0.7fr);
     grid-template-columns: repeat(6, 1fr);
@@ -561,9 +576,6 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 @media only screen and (max-width: 565px) {
-  body {
-    background-color: crimson;
-  }
   .app-container {
     grid-template-rows: 1fr 1.1fr repeat(9, 1fr) repeat(2, 0.7fr);
   }
@@ -642,9 +654,6 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 @media only screen and (max-height: 700px) {
-  body {
-    background-color: #bb86fc;
-  }
   .search-container {
     height: 80%;
   }
