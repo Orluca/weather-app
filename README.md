@@ -13,7 +13,7 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] Alle Sonnensymbole zu mond in nacht für CHART symbols
 - [ ] icon/link to Github repo
 - [ ] refactor again; wirkt immer noch alles sehr unübersichtlich
-- [ ] I'm pretty sure the logic behind when to display sun/moon graphics is not yet working correctly
+- [ ] The isNight logic doesn't really work yet for locations that are very far up north
 
 ### where to add animations
 

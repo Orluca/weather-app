@@ -388,8 +388,19 @@ const getCurrentWeatherData = function (lat, lon) {
 
 // DISPLAYING CURRENT WEATHER DATA
 const displayCurrentWeather = async function (weatherData, cityName, stateName, countryName) {
+  // For the sunrise and sunset times the timezone has to be taken into account
+  const timezone = weatherData.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
+  const sunrise = (weatherData.sys.sunrise + timezone) * 1000;
+  const sunset = (weatherData.sys.sunset + timezone) * 1000;
+  const localTime = (weatherData.dt + timezone) * 1000;
+
   // Check if it is currently night in the location, so that the 'moon' weather symbol can be used instead of the 'sun' symbol
-  const isNight = weatherData.dt > weatherData.sys.sunset || weatherData.dt < weatherData.sys.sunrise ? true : false;
+  console.log("CURRENT TIME: " + dayjs(localTime).format("HH:mm"));
+  console.log("SUNRISE: " + dayjs(sunrise).format("HH:mm"));
+  console.log("SUNSET: " + dayjs(sunset).format("HH:mm"));
+
+  const isNight = localTime > sunset || localTime < sunrise ? true : false;
+  console.log(isNight);
 
   // Extract the current weather data and format it where appropriate
   const temp = Math.round(weatherData.main.temp);
@@ -398,19 +409,14 @@ const displayCurrentWeather = async function (weatherData, cityName, stateName, 
   const windDirection = weatherData.wind.deg;
   const weatherSymbol = getWeatherSymbol(weatherData.weather[0].id, "png", isNight);
 
-  // For the sunrise and sunset times the timezone has to be taken into account
-  const timezone = weatherData.timezone - 7200; // Right now all the sunrise and sunset times are off by 2 hours, probably due to some timezone problem. This is a temporary solution until I found a better one
-  const sunrise = dayjs((weatherData.sys.sunrise + timezone) * 1000).format("HH:mm");
-  const sunset = dayjs((weatherData.sys.sunset + timezone) * 1000).format("HH:mm");
-
   // Update the HTML elements with their respective data
   $cityName.textContent = cityName;
   $stateAndCountry.textContent = `${stateName ? `${stateName}, ` : ""} ${countryName}`; // some locations might not have a state, in which case print an empty string
   $currentTemp.textContent = temp;
   $humidity.textContent = humidity;
   $windSpeed.textContent = windSpeed;
-  $sunrise.textContent = sunrise;
-  $sunset.textContent = sunset;
+  $sunrise.textContent = dayjs(sunrise).format("HH:mm");
+  $sunset.textContent = dayjs(sunset).format("HH:mm");
   $currentOvercast.src = `icons/${weatherSymbol}`;
 
   // Rotate the wind direction symbol depending on the windDirection degree
