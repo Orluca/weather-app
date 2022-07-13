@@ -267,7 +267,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 .text-search-input {
   border: none;
-  flex-grow: 4;
+  flex-grow: 1;
+  /* font-size: 0.5rem; */
 }
 
 .text-search-input:focus {
@@ -297,6 +298,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   border-radius: 5px;
   border: 1px solid #404343;
   box-shadow: 2px 2px 5px #000000;
+  display: none;
 }
 
 .map-toggle-btn:hover {
@@ -328,6 +330,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 #map {
   height: 50vh;
+  /* height: 50%; */
   width: 100%;
   box-shadow: 2px 2px 5px #000000;
   border: 3px solid white;
@@ -341,6 +344,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+  /* height: 100%; */
+  /* height: 10vh; */
 }
 
 .map-error {
@@ -647,64 +652,22 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   }
 }
 
-/* @media only screen and (max-height: 800px) {
-  .search-container {
-    height: 90%;
-  }
-  .search-subcontainer {
-    height: 100%;
-  }
-  .map-toggle-btn-img {
-    height: calc(2.5vw + 1.5vh);
-  }
+@media only screen and (max-height: 735px) {
   #map {
-    height: 100%;
-  }
-  .map-search-container {
-    flex-direction: row;
-    justify-content: space-between;
-    height: 100%;
-  }
-  .map-buttons-container {
-    flex-direction: column;
-  }
-  .map-container {
-    border: 1px solid red;
-    flex-grow: 1;
-  }
-  .content-container {
-    height: 100%;
-  }
-  .btn-map-cancel,
-  .btn-map-confirm {
-    font-size: 1rem;
-    padding: 0.5rem 0.8rem;
-  }
-  .results-container {
-    height: 100%;
-  }
-  .search-result {
-    height: 100%;
-    overflow: auto;
-  }
-  .search-top-section-container {
-    justify-content: space-between;
+    height: 45vh;
   }
   .text-search-container {
-    width: 80%;
+    padding: 0.25rem 0.8rem;
   }
-  .map-toggle-btn {
-    width: 8%;
+}
+
+@media only screen and (max-height: 585px) {
+  #map {
+    height: 40vh;
   }
-} */
+}
 
-/* @media (max-aspect-ratio: 3/2) {
-  body {
-    background: #9ff; /* cyan 
-  } 
- } */
-
-@media only screen and (max-height: 750px) {
+@media only screen and (max-height: 520px) {
   body {
     background-color: cyan;
   }
@@ -712,6 +675,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
     flex-direction: row;
     /* justify-content: space-between; */
     height: 100%;
+    /* height: 500vh; */
   }
   .map-buttons-container {
     flex-direction: column-reverse;
@@ -720,7 +684,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .map-container {
     /* border: 1px solid red; */
     flex-grow: 1;
-    /* height: 100%; */
+    height: 100%;
   }
   #map {
     height: 100%;
@@ -731,6 +695,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   }
   .search-subcontainer {
     max-height: 100%;
+    /* height: 100%; */
   }
   .btn-map-cancel,
   .btn-map-confirm {
@@ -739,8 +704,9 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
     margin: 0 0 0 1rem;
   }
   .content-container {
-    /* height: 100%; */
+    height: 100%;
     height: 75vh;
+    /* flex-grow: 1; */
   }
   .results-container {
     height: 100%;
