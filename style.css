@@ -726,7 +726,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   }
   .search-container {
     /* max-height: 90%; */
-    height: 90vh;
+    height: 80vh;
   }
   .search-subcontainer {
     max-height: 100%;
