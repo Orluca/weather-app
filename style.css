@@ -705,7 +705,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 @media only screen and (max-height: 750px) {
   body {
-    background-color: #03dac6;
+    background-color: #4bda03;
   }
   .map-search-container {
     flex-direction: row;
