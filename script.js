@@ -32,6 +32,7 @@ const $errorMapSearch = document.querySelector(".map-error");
 const $btnMapToggle = document.querySelector(".map-toggle-btn");
 const $btnMapCancel = document.querySelector(".btn-map-cancel");
 const $btnMapConfirm = document.querySelector(".btn-map-confirm");
+const $btnTextSearch = document.querySelector(".text-search-btn");
 
 // ************ APP WINDOW *************
 const $appContainer = document.querySelector(".app-container");
@@ -271,20 +272,28 @@ const searchAndDisplayResults = async function (cityName) {
   $searchWindowContent.style.overflow = "auto";
 };
 
+// Executed on text searches
+const textSearch = function () {
+  // Deactivate the map toggle button, in case it was turned on
+  makeMapToggleInactive();
+
+  // Remove any prior search results, then search for and display the new results
+  $searchResultsList.innerHTML = "";
+  searchAndDisplayResults($searchCityName.value);
+
+  // Reset the search input field
+  $searchCityName.value = "";
+};
+
 // LISTEN FOR "ENTER" KEY PRESSES IN THE SEARCH FIELD
 $searchCityName.addEventListener("keypress", function (e) {
   if (e.key !== "Enter") return;
 
-  // Deactivate the map toggle button, in case it was turned on
-  makeMapToggleInactive();
-
-  // Remove any prior search results, then search for new
-  $searchResultsList.innerHTML = "";
-  searchAndDisplayResults(e.target.value);
-
-  // Reset the search input field
-  this.value = "";
+  textSearch();
 });
+
+// LISTEN FOR BUTTON PRESSES ON THE TEXT SEARCH BUTTON
+$btnTextSearch.addEventListener("click", textSearch);
 
 // LISTEN FOR CLICKS ON SEARCH RESULTS
 $searchResultsList.addEventListener("click", function (e) {
