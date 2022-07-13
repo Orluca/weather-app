@@ -293,12 +293,13 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* ############### MAP TOGGLE BUTTON ############### */
 /* ################################################# */
 .map-toggle-btn {
-  height: 100%;
+  /* height: 100%; */
+  /* height: 30px; */
   padding: 0.5vh;
   border-radius: 5px;
   border: 1px solid #404343;
   box-shadow: 2px 2px 5px #000000;
-  display: none;
+  /* display: none; */
 }
 
 .map-toggle-btn:hover {
@@ -307,7 +308,8 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 .map-toggle-btn-img {
-  height: calc(1.5vw + 1vh);
+  /* height: calc(1.5vw + 1vh); */
+  height: 30px;
 }
 
 /* .map-toggle-btn-img {
@@ -560,9 +562,9 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .search-container {
     width: 75vw;
   }
-  .map-toggle-btn-img {
+  /* .map-toggle-btn-img {
     height: calc(2vw + 1vh);
-  }
+  } */
   .text-search-container {
     width: 60%;
   }
@@ -602,9 +604,9 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
     display: flex;
     justify-content: space-between;
   }
-  .map-toggle-btn-img {
+  /* .map-toggle-btn-img {
     height: calc(4vw + 1vh);
-  }
+  } */
 }
 
 @media only screen and (max-width: 485px) {
@@ -659,6 +661,9 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   .text-search-container {
     padding: 0.25rem 0.8rem;
   }
+  /* .map-toggle-btn-img {
+    height: 30px;
+  } */
 }
 
 @media only screen and (max-height: 585px) {
