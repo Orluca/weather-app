@@ -643,7 +643,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   }
 }
 
-@media only screen and (max-height: 700px) {
+@media only screen and (max-height: 800px) {
   .search-container {
     height: 90%;
   }
