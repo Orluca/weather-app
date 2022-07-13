@@ -445,7 +445,7 @@ const createAnnotations = function (timeStamps) {
         color: "black",
         font: function (context) {
           const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
-          let size = Math.round(avgSize / 32);
+          let size = Math.round(avgSize / 40);
           size = size > 12 ? 12 : size;
           return {
             size: size,
@@ -457,10 +457,10 @@ const createAnnotations = function (timeStamps) {
         yAdjust: -5,
         position: "start",
         padding: {
-          top: 3,
-          bottom: 3,
-          left: 6,
-          right: 6,
+          top: 2,
+          bottom: 2,
+          left: 3,
+          right: 3,
         },
       },
     };

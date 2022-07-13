@@ -409,22 +409,11 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 /* ################################################### */
 .content-container {
   margin: 0 1rem 1rem 1rem;
-  /* overflow: scroll; */
-  /* border: 1px solid white; */
-  /* max-height: 65vh; */
-  /* max-height: 100%; */
-  /* position: absolute; */
-  /* left: 0;
-  right: 0; */
-  /* min-height: 0px; */
   overflow: auto;
-  /* justify-content: space-between; */
 }
 
 .results-container {
-  /* overflow: scroll; */
   height: 50%;
-  /* border: 1px solid white; */
 }
 
 .text-search-error {
@@ -481,7 +470,6 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
   row-gap: 0.5rem;
   height: 50%;
   overflow: hidden;
-  /* overflow: auto; */
 }
 
 .search-result > div {
@@ -657,9 +645,53 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 @media only screen and (max-height: 700px) {
   .search-container {
-    height: 80%;
+    height: 90%;
+  }
+  .search-subcontainer {
+    height: 100%;
   }
   .map-toggle-btn-img {
-    height: calc(4vw + 2vh);
+    height: calc(2.5vw + 1.5vh);
+  }
+  #map {
+    /* width: 100%; */
+    height: 100%;
+  }
+  .map-search-container {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    /* flex-grow: 1; */
+  }
+  .map-buttons-container {
+    flex-direction: column;
+  }
+  .map-container {
+    border: 1px solid red;
+    flex-grow: 1;
+  }
+  .content-container {
+    height: 100%;
+  }
+  .btn-map-cancel,
+  .btn-map-confirm {
+    font-size: 1rem;
+    padding: 0.5rem 0.8rem;
+  }
+  .results-container {
+    height: 100%;
+  }
+  .search-result {
+    height: 100%;
+    overflow: auto;
+  }
+  .search-top-section-container {
+    justify-content: space-between;
+  }
+  .text-search-container {
+    width: 80%;
+  }
+  .map-toggle-btn {
+    width: 8%;
   }
 }
