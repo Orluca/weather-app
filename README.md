@@ -13,5 +13,6 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] Moon symbols in the chart
 - [ ] Refactor code again
 - [ ] The isNight logic doesn't seem to work yet for locations that are very far up north
+- [ ] the text search button doesn't do anything yet, only enter works
 
 ICON CREDITS: freepik, surang, creative stall premium, good ware, alfredo hernandez

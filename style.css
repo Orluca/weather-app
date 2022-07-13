@@ -29,7 +29,8 @@ body {
 
 body {
   /* background-color: var(--bg-color); */
-  background-color: #ff6060;
+  /* background-color: #ff6060; */
+  background-color: cyan;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -705,7 +706,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 
 @media only screen and (max-height: 750px) {
   body {
-    background-color: #4bda03;
+    background-color: cyan;
   }
   .map-search-container {
     flex-direction: row;
@@ -713,7 +714,7 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
     height: 100%;
   }
   .map-buttons-container {
-    flex-direction: column;
+    flex-direction: column-reverse;
     row-gap: 1rem;
   }
   .map-container {

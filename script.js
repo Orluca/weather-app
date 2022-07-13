@@ -596,7 +596,7 @@ const createForecastChart = function (data) {
             },
             font: function (context) {
               const avgSize = Math.round((context.chart.height + context.chart.width) / 2);
-              let size = Math.round(avgSize / 32);
+              let size = Math.round(avgSize / 50);
               size = size > 14 ? 14 : size;
               return {
                 size: size,
