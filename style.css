@@ -72,8 +72,9 @@ body {
   display: grid;
   grid-template-rows: repeat(2, 1fr) 0.5fr repeat(11, 1fr);
   grid-template-columns: repeat(5, 1fr) 0.75fr;
-  border-radius: 30px;
-  padding: clamp(1rem, 2vw, 2rem);
+  /* border-radius: 30px; */
+  border-radius: clamp(0.7rem, 2vw, 2rem);
+  padding: clamp(0.7rem, 2vw, 2rem);
   color: var(--text-color);
   box-shadow: 2px 4px 5px var(--shadow-color);
   transition: opacity 1000ms;
@@ -673,9 +674,6 @@ The following code, plus setting the "position" in ".forecast-container" to "rel
 }
 
 @media only screen and (max-height: 520px) {
-  body {
-    background-color: cyan;
-  }
   .map-search-container {
     flex-direction: row;
     /* justify-content: space-between; */
