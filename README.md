@@ -14,6 +14,7 @@ A simple weather app created with Vanilla JS and ChartJS.
 - [ ] Refactor code
 - [ ] The isNight logic doesn't seem to work yet for locations that are very far up north
 - [ ] Still need some kind of welcome/instruction on the search page, at least on first startup, so that it is clear that this is a weather app
-- [ ] When the height of the viewport gets quite narrow (e.g. due to an expanded keyboard on mobile), the search result items get too big
+- [x] When the height of the viewport gets quite narrow (e.g. due to an expanded keyboard on mobile), the search result items get too big
+- [ ] On small screens the tick lines are too big and take away too much space from the chart
 
 ICON CREDITS: freepik, surang, creative stall premium, good ware, alfredo hernandez
