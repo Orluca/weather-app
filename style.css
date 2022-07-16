@@ -30,7 +30,7 @@ body {
 body {
   /* background-color: var(--bg-color); */
   /* background-color: #ff6060; */
-  background-color: cyan;
+  background-color: rgb(29, 170, 175);
   display: flex;
   justify-content: center;
   align-items: center;
